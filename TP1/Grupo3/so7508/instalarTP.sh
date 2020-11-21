@@ -184,13 +184,20 @@ define_dirs() {
 
 show_details() {
 	
-	clear
-	echo 'TP1 - SO75.08 - 2do Cuatrimestre 2020 - Curso Martes Copyright © Grupo 3'
-	MENSAJE="Confirmar Proceso - instalarTP"
-	echo "$MENSAJE"
-	log_message "$MENSAJE"
+	if [[ $DEBE_REPARAR = 0 ]]
+	then
+		clear
+		echo 'TP1 - SO75.08 - 2do Cuatrimestre 2020 - Curso Martes Copyright © Grupo 3'
+		MENSAJE="Confirmar Proceso - instalarTP"
+		echo "$MENSAJE"
+		log_message "$MENSAJE"
+	else
+		echo ""
+		echo "Debe reparar su instalación."
+		echo "Se utilizarán los siguientes parámetros:"
+	fi
 	echo ""
-
+	
 	#Mostramos el mensaje por pantalla
 	echo "Tipo de proceso: $TIPO_INSTALACION"
 	echo "Directorio padre: \""$PATH_BASE"\""
@@ -199,14 +206,26 @@ show_details() {
 	echo "Archivo de configuración: \""$PATH_CONFIGURACION"\""
 	echo "Log de la inicialización: \""$PATH_LOG_INICIALIZACION"\""
 	echo "Log del proceso principal: \""$PATH_LOG_PROCESO_PPAL"\""
-	echo "Directorio de ejecutables: \""$PATH_BASE$PATH_EJECUTABLES"\""
-	echo "Directorio de tablas maestras: \""$PATH_BASE$PATH_TABLAS"\""
-	echo "Directorio de novedades: \""$PATH_BASE$PATH_NOVEDADES"\""
-	echo "Directorio novedades aceptadas: \""$PATH_BASE$PATH_NOVEDADES$PATH_ACEPTADAS"\""
-	echo "Directorio de rechazados: \""$PATH_BASE$PATH_RECHAZADAS"\""
-	echo "Directorio de lotes procesados: \""$PATH_BASE$PATH_LOTES"\""
-	echo "Directorio de transacciones: \""$PATH_BASE$PATH_TRANSACCIONES"\""
-	echo "Directorio de comisiones: \""$PATH_BASE$PATH_TRANSACCIONES$PATH_COMISIONES"\""
+	if [[ $DEBE_REPARAR = 0 ]]
+	then
+		echo "Directorio de ejecutables: \""$PATH_BASE$PATH_EJECUTABLES"\""	
+		echo "Directorio de tablas maestras: \""$PATH_BASE$PATH_TABLAS"\""
+		echo "Directorio de novedades: \""$PATH_BASE$PATH_NOVEDADES"\""
+		echo "Directorio novedades aceptadas: \""$PATH_BASE$PATH_NOVEDADES$PATH_ACEPTADAS"\""
+		echo "Directorio de rechazados: \""$PATH_BASE$PATH_RECHAZADAS"\""
+		echo "Directorio de lotes procesados: \""$PATH_BASE$PATH_LOTES"\""
+		echo "Directorio de transacciones: \""$PATH_BASE$PATH_TRANSACCIONES"\""
+		echo "Directorio de comisiones: \""$PATH_BASE$PATH_TRANSACCIONES$PATH_COMISIONES"\""
+	else
+		echo "Directorio de ejecutables: \""$PATH_EJECUTABLES"\""	
+		echo "Directorio de tablas maestras: \""$PATH_TABLAS"\""
+		echo "Directorio de novedades: \""$PATH_NOVEDADES"\""
+		echo "Directorio novedades aceptadas: \""$PATH_ACEPTADAS"\""
+		echo "Directorio de rechazados: \""$PATH_RECHAZADAS"\""
+		echo "Directorio de lotes procesados: \""$PATH_LOTES"\""
+		echo "Directorio de transacciones: \""$PATH_TRANSACCIONES"\""
+		echo "Directorio de comisiones: \""$PATH_COMISIONES"\""
+	fi
 	echo "Estado de la instalación: \""$ESTADO_INSTALACION"\""
 
 	return 0
@@ -322,7 +341,7 @@ clean_install() {
 		echo ""
 		echo "Error de instalación!"
 		ESTADO_INSTALACION="ABORTADA"
-		echo "Estado de la instalación: $ESTADO_INSTALACION"
+		echo "Estado de la instalación: $ESTADO_INSTALACION. Utilice \"limpiarTP.sh\" para revertir el proceso."
 		echo ""
 		MENSAJE="Fin - instalarTP (1)"
 		echo "$MENSAJE"
@@ -349,25 +368,159 @@ clean_install() {
 #Funcion para reparación
 repair_install() {
 
-
+	#Resumen de parámetros de la reparación
+	TIPO_INSTALACION="REPARACION"
+	ESTADO_INSTALACION="LISTA"
+	show_details
+	#Pedimos al usuario confirmación
 	echo ""
-	echo "REPARAR INSTALACION!"
+	echo -n "¿Confirma la reparación? (SI-[NO]): "
+	IFS= read -r CONFIRMA_REPAIR
+	if [[ $CONFIRMA_REPAIR == "SI" ]] || [[ $CONFIRMA_REPAIR == "si" ]]
+	then
+		#Reparación de directorios
+		ERR_RD_FLAG=0
+		if [[ $FIX_PATH_EJECUTABLES = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_EJECUTABLES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		if [[ $FIX_PATH_TABLAS = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_TABLAS" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		if [[ $FIX_PATH_NOVEDADES = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_NOVEDADES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		if [[ $FIX_PATH_ACEPTADAS = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_ACEPTADAS" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		if [[ $FIX_PATH_RECHAZADAS = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_RECHAZADAS" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		if [[ $FIX_PATH_LOTES = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_LOTES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		if [[ $FIX_PATH_TRANSACCIONES = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_TRANSACCIONES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		if [[ $FIX_PATH_COMISIONES = 1 ]]
+		then
+			ERR_RD=$(mkdir -p "$PATH_COMISIONES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error creando directorio: $ERR_RD"
+				ERR_RD_FLAG=1
+			fi
+		fi
+		#Reparación de archivos
+		ERR_RF_FLAG=0
+		if [[ $FIX_ARCHIVO_ARRANCAR = 1 ]]
+		then
+			ERR_RF=$(cp "$PATH_BASE/original/arrancarproceso.sh" "$PATH_EJECUTABLES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error copiando archivos: $ERR_RF"
+				ERR_RF_FLAG=1
+			fi
+		fi
+		if [[ $FIX_ARCHIVO_FRENAR = 1 ]]
+		then
+			ERR_RF=$(cp "$PATH_BASE/original/frenarproceso.sh" "$PATH_EJECUTABLES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error copiando archivos: $ERR_RF"
+				ERR_RF_FLAG=1
+			fi
+		fi
+		if [[ $FIX_ARCHIVO_INICIAR = 1 ]]
+		then
+			ERR_RF=$(cp "$PATH_BASE/original/iniciarambiente.sh" "$PATH_EJECUTABLES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error copiando archivos: $ERR_RF"
+				ERR_RF_FLAG=1
+			fi
+		fi
+		if [[ $FIX_ARCHIVO_PRINCIPAL = 1 ]]
+		then
+			ERR_RF=$(cp "$PATH_BASE/original/pprincipal.sh" "$PATH_EJECUTABLES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				echo "Error copiando archivos: $ERR_RF"
+				ERR_RF_FLAG=1
+			fi
+		fi
+		
+		if [[ $ERR_RD_FLAG != 0 ]] || [[ $ERR_RF_FLAG != 0 ]]
+		then
+			echo ""
+			echo "Error de reparación!"
+			ESTADO_INSTALACION="ABORTADA"
+			echo "Estado de la reparación: $ESTADO_INSTALACION. Utilice \"limpiarTP.sh\" para revertir el proceso."
+			echo ""
+			MENSAJE="Fin - instalarTP (1)"
+			echo "$MENSAJE"
+			log_message "$MENSAJE"
+			exit 1
+		else
+			#Agregamos al archivo de configuración el registro de reparación
+			echo "REPARACION-\"$(date -R)\"-$USER" >> $PATH_CONFIGURACION
 	
-	#FIX_PATH_EJECUTABLES=0
-	#FIX_PATH_TABLAS=0
-	#FIX_PATH_NOVEDADES=0
-	#FIX_PATH_ACEPTADAS=0
-	#FIX_PATH_RECHAZADAS=0
-	#FIX_PATH_LOTES=0
-	#FIX_PATH_TRANSACCIONES=0
-	#FIX_PATH_COMISIONES=0
-	
-	#FIX_ARCHIVO_ARRANCAR=0
-	#FIX_ARCHIVO_FRENAR=0
-	#FIX_ARCHIVO_INICIAR=0
-	#FIX_ARCHIVO_PRINCIPAL=0
-	
-	return 0
+			#Reparación finalizada
+			ESTADO_INSTALACION="REPARADA"
+			echo "Estado de la instalación: $ESTADO_INSTALACION"
+		fi
+	else
+		ESTADO_INSTALACION="CANCELADA"
+		echo ""
+		echo "Reparación cancelada."
+		echo "Estado de la reparación: $ESTADO_INSTALACION"
+		echo ""
+		MENSAJE="Fin - instalarTP (1)"
+		echo "$MENSAJE"
+		log_message "$MENSAJE"
+		exit 1
+	fi
 } 
 
 #Funcion para chequeo
@@ -509,7 +662,7 @@ check_install() {
 	else
 		#La instalación es correcta!
 		echo ""
-		echo "Instalación verificada correctamente"
+		echo "Instalación verificada correctamente."
 		#Instalación finalizada
 		ESTADO_INSTALACION="CHEQUEADA"
 		echo "Estado de la instalación: $ESTADO_INSTALACION"
@@ -517,7 +670,7 @@ check_install() {
 } 
 
 #FLUJO PRINCIPAL
-#Limpiamos la pantalla
+#Limpiamos la pantalla antes de comenzar
 clear
 
 #Mensaje y log de inicio
