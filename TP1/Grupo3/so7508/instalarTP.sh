@@ -33,6 +33,21 @@ PATH_CONFIGURACION="$PATH_BASE/so7508/instalarTP.conf"
 PATH_LOG_INICIALIZACION="$PATH_BASE/so7508/inicarambiente.log"
 PATH_LOG_PROCESO_PPAL="$PATH_BASE/so7508/pprincipal.log"
 
+#Variables de control para el reparar instalación
+FIX_PATH_EJECUTABLES=0
+FIX_PATH_TABLAS=0
+FIX_PATH_NOVEDADES=0
+FIX_PATH_ACEPTADAS=0
+FIX_PATH_RECHAZADAS=0
+FIX_PATH_LOTES=0
+FIX_PATH_TRANSACCIONES=0
+FIX_PATH_COMISIONES=0
+
+FIX_ARCHIVO_ARRANCAR=0
+FIX_ARCHIVO_FRENAR=0
+FIX_ARCHIVO_INICIAR=0
+FIX_ARCHIVO_PRINCIPAL=0
+
 #Variable con nombres reservados
 #Se pueden agregar los que se deseen
 RESERVADOS="^(Grupo3|so7508|original|catedra|propios|testeos)$"
@@ -277,25 +292,25 @@ clean_install() {
 	fi
 	#Copia de los archivos
 	ERR_IC_FLAG=0
-	ERR_IC=$(cp "$PATH_BASE/original/arrancarproceso.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	ERR_IC=$(cp "$PATH_BASE/original/arrancarproceso.sh" "$PATH_BASE$PATH_EJECUTABLES" 2>&1 >/dev/null)
 	if [[ $? != 0 ]]
 	then
 		echo "Error copiando archivos: $ERR_IC"
 		ERR_IC_FLAG=1
 	fi
-	ERR_IC=$(cp "$PATH_BASE/original/frenarproceso.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	ERR_IC=$(cp "$PATH_BASE/original/frenarproceso.sh" "$PATH_BASE$PATH_EJECUTABLES" 2>&1 >/dev/null)
 	if [[ $? != 0 ]]
 	then
 		echo "Error copiando archivos: $ERR_IC"
 		ERR_IC_FLAG=1
 	fi
-	ERR_IC=$(cp "$PATH_BASE/original/iniciarambiente.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	ERR_IC=$(cp "$PATH_BASE/original/iniciarambiente.sh" "$PATH_BASE$PATH_EJECUTABLES" 2>&1 >/dev/null)
 	if [[ $? != 0 ]]
 	then
 		echo "Error copiando archivos: $ERR_IC"
 		ERR_IC_FLAG=1
 	fi
-	ERR_IC=$(cp "$PATH_BASE/original/pprincipal.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	ERR_IC=$(cp "$PATH_BASE/original/pprincipal.sh" "$PATH_BASE$PATH_EJECUTABLES" 2>&1 >/dev/null)
 	if [[ $? != 0 ]]
 	then
 		echo "Error copiando archivos: $ERR_IC"
@@ -334,15 +349,171 @@ clean_install() {
 #Funcion para reparación
 repair_install() {
 
-	echo "FUNCION PARA REPARAR LA INSTALACION"
+
+	echo ""
+	echo "REPARAR INSTALACION!"
+	
+	#FIX_PATH_EJECUTABLES=0
+	#FIX_PATH_TABLAS=0
+	#FIX_PATH_NOVEDADES=0
+	#FIX_PATH_ACEPTADAS=0
+	#FIX_PATH_RECHAZADAS=0
+	#FIX_PATH_LOTES=0
+	#FIX_PATH_TRANSACCIONES=0
+	#FIX_PATH_COMISIONES=0
+	
+	#FIX_ARCHIVO_ARRANCAR=0
+	#FIX_ARCHIVO_FRENAR=0
+	#FIX_ARCHIVO_INICIAR=0
+	#FIX_ARCHIVO_PRINCIPAL=0
+	
 	return 0
 } 
 
 #Funcion para chequeo
 check_install() {
+	
+	echo ""
+	echo "Comprobando instalación..."
+	#Lectura del archivo de configuración
+	while IFS= read -r LINEA
+	do
+		CONFIG="$(echo "$LINEA" | cut -d- -f1)"
+		if [[ $CONFIG == "GRUPO" ]]
+		then
+			PATH_BASE="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_BASE="${PATH_BASE//\"}"
+		fi
+		if [[ $CONFIG == "DIRINST" ]]
+		then
+			PATH_SCRIPT_INSTALACION="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_SCRIPT_INSTALACION="${PATH_SCRIPT_INSTALACION//\"}"
+		fi
+		if [[ $CONFIG == "DIRBIN" ]]
+		then
+			PATH_EJECUTABLES="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_EJECUTABLES="${PATH_EJECUTABLES//\"}"
+		fi
+		if [[ $CONFIG == "DIRMAE" ]]
+		then
+			PATH_TABLAS="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_TABLAS="${PATH_TABLAS//\"}"
+		fi
+		if [[ $CONFIG == "DIRIN" ]]
+		then
+			PATH_NOVEDADES="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_NOVEDADES="${PATH_NOVEDADES//\"}"
+		fi
+		if [[ $CONFIG == "DIRRECH" ]]
+		then
+			PATH_RECHAZADAS="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_RECHAZADAS="${PATH_RECHAZADAS//\"}"
+		fi
+		if [[ $CONFIG == "DIRPROC" ]]
+		then
+			PATH_LOTES="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_LOTES="${PATH_LOTES//\"}"
+		fi
+		if [[ $CONFIG == "DIROUT" ]]
+		then
+			PATH_TRANSACCIONES="$(echo "$LINEA" | cut -d- -f2)"
+			PATH_TRANSACCIONES="${PATH_TRANSACCIONES//\"}"
+		fi
+	done < "$PATH_CONFIGURACION"
 
-	echo "FUNCION PARA CHEQUEAR LA INSTALACION"
-	return 0
+	#Reconstrucción de paths compuestos a verificar
+	PATH_ACEPTADAS="$PATH_NOVEDADES$PATH_ACEPTADAS"
+	PATH_COMISIONES="$PATH_TRANSACCIONES$PATH_COMISIONES"
+
+	DEBE_REPARAR=0
+	#Verificación de directorios
+	if [[ ! -d "$PATH_EJECUTABLES" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_EJECUTABLES\""
+		FIX_PATH_EJECUTABLES=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -d "$PATH_TABLAS" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_TABLAS\""
+		FIX_PATH_TABLAS=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -d "$PATH_NOVEDADES" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_NOVEDADES\""
+		FIX_PATH_NOVEDADES=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -d "$PATH_ACEPTADAS" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_ACEPTADAS\""
+		FIX_PATH_ACEPTADAS=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -d "$PATH_RECHAZADAS" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_RECHAZADAS\""
+		FIX_PATH_RECHAZADAS=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -d "$PATH_LOTES" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_LOTES\""
+		FIX_PATH_LOTES=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -d "$PATH_TRANSACCIONES" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_TRANSACCIONES\""
+		FIX_PATH_TRANSACCIONES=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -d "$PATH_COMISIONES" ]]
+	then
+		echo "No se encontró el directorio: \"$PATH_COMISIONES\""
+		FIX_PATH_COMISIONES=1
+		DEBE_REPARAR=1
+	fi
+	#Verificación de archivos
+	if [[ ! -f "$PATH_EJECUTABLES/arrancarproceso.sh" ]]
+	then
+		echo "No se encontró el archivo: \"$PATH_EJECUTABLES/arrancarproceso.sh\""
+		FIX_ARCHIVO_ARRANCAR=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -f "$PATH_EJECUTABLES/frenarproceso.sh" ]]
+	then
+		echo "No se encontró el archivo: \"$PATH_EJECUTABLES/frenarproceso.sh\""
+		FIX_ARCHIVO_FRENAR=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -f "$PATH_EJECUTABLES/iniciarambiente.sh" ]]
+	then
+		echo "No se encontró el archivo: \"$PATH_EJECUTABLES/iniciarambiente.sh\""
+		FIX_ARCHIVO_INICIAR=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -f "$PATH_EJECUTABLES/pprincipal.sh" ]]
+	then
+		echo "No se encontró el archivo: \"$PATH_EJECUTABLES/pprincipal.sh\""
+		FIX_ARCHIVO_PRINCIPAL=1
+		DEBE_REPARAR=1
+	fi
+
+	#Vemos si se debe reparar o no la instalación
+	if [[ $DEBE_REPARAR = 1 ]]
+	then
+		#Llamamos a la funcion que reparará la instalación
+		repair_install
+	else
+		#La instalación es correcta!
+		echo ""
+		echo "Instalación verificada correctamente"
+		#Instalación finalizada
+		ESTADO_INSTALACION="CHEQUEADA"
+		echo "Estado de la instalación: $ESTADO_INSTALACION"
+	fi
 } 
 
 #FLUJO PRINCIPAL
