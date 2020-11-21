@@ -226,33 +226,109 @@ clean_install() {
 	echo ""
 	echo "Instalación confirmada."
 	#Creación de directorios
-	mkdir "$PATH_BASE$PATH_EJECUTABLES"
-	mkdir "$PATH_BASE$PATH_TABLAS"
-	mkdir "$PATH_BASE$PATH_NOVEDADES"
-	mkdir "$PATH_BASE$PATH_NOVEDADES$PATH_ACEPTADAS"
-	mkdir "$PATH_BASE$PATH_RECHAZADAS"
-	mkdir "$PATH_BASE$PATH_LOTES"
-	mkdir "$PATH_BASE$PATH_TRANSACCIONES"
-	mkdir "$PATH_BASE$PATH_TRANSACCIONES$PATH_COMISIONES"
+	ERR_ID_FLAG=0
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_EJECUTABLES" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_TABLAS" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_NOVEDADES" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_NOVEDADES$PATH_ACEPTADAS" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_RECHAZADAS" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_LOTES" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_TRANSACCIONES" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
+	ERR_ID=$(mkdir -p "$PATH_BASE$PATH_TRANSACCIONES$PATH_COMISIONES" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error creando directorio: $ERR_ID"
+		ERR_ID_FLAG=1
+	fi
 	#Copia de los archivos
-	cp "$PATH_BASE/original/arrancarproceso.sh" $PATH_BASE$PATH_EJECUTABLES
-	cp "$PATH_BASE/original/frenarproceso.sh" $PATH_BASE$PATH_EJECUTABLES
-	cp "$PATH_BASE/original/iniciarambiente.sh" $PATH_BASE$PATH_EJECUTABLES
-	cp "$PATH_BASE/original/pprincipal.sh" $PATH_BASE$PATH_EJECUTABLES
-	#Escritura de archivo de configuración
-	echo "GRUPO-\"$PATH_BASE\"" > $PATH_CONFIGURACION
-	echo "DIRINST-\"$PATH_SCRIPT_INSTALACION\"" >> $PATH_CONFIGURACION
-	echo "DIRBIN-\"$PATH_BASE$PATH_EJECUTABLES\"" >> $PATH_CONFIGURACION
-	echo "DIRMAE-\"$PATH_BASE$PATH_TABLAS\"" >> $PATH_CONFIGURACION
-	echo "DIRIN-\"$PATH_BASE$PATH_NOVEDADES\"" >> $PATH_CONFIGURACION
-	echo "DIRRECH-\"$PATH_BASE$PATH_RECHAZADAS\"" >> $PATH_CONFIGURACION
-	echo "DIRPROC-\"$PATH_BASE$PATH_LOTES\"" >> $PATH_CONFIGURACION
-	echo "DIROUT-\"$PATH_BASE$PATH_TRANSACCIONES\"" >> $PATH_CONFIGURACION
-	echo "INTSTALACION-\"$(date -R)\"-$USER" >> $PATH_CONFIGURACION
+	ERR_IC_FLAG=0
+	ERR_IC=$(cp "$PATH_BASE/original/arrancarproceso.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error copiando archivos: $ERR_IC"
+		ERR_IC_FLAG=1
+	fi
+	ERR_IC=$(cp "$PATH_BASE/original/frenarproceso.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error copiando archivos: $ERR_IC"
+		ERR_IC_FLAG=1
+	fi
+	ERR_IC=$(cp "$PATH_BASE/original/iniciarambiente.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error copiando archivos: $ERR_IC"
+		ERR_IC_FLAG=1
+	fi
+	ERR_IC=$(cp "$PATH_BASE/original/pprincipal.sh" $PATH_BASE$PATH_EJECUTABLES 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		echo "Error copiando archivos: $ERR_IC"
+		ERR_IC_FLAG=1
+	fi
 	
-	#Instalación finalizada
-	ESTADO_INSTALACION="COMPLETADA"
-	echo "Estado de la instalación: $ESTADO_INSTALACION"
+	if [[ $ERR_ID_FLAG != 0 ]] || [[ $ERR_IC_FLAG != 0 ]]
+	then
+		echo ""
+		echo "Error de instalación!"
+		ESTADO_INSTALACION="ABORTADA"
+		echo "Estado de la instalación: $ESTADO_INSTALACION"
+		echo ""
+		MENSAJE="Fin - instalarTP (1)"
+		echo "$MENSAJE"
+		log_message "$MENSAJE"
+		exit 1
+	else
+		#Escritura de archivo de configuración
+		echo "GRUPO-\"$PATH_BASE\"" > $PATH_CONFIGURACION
+		echo "DIRINST-\"$PATH_SCRIPT_INSTALACION\"" >> $PATH_CONFIGURACION
+		echo "DIRBIN-\"$PATH_BASE$PATH_EJECUTABLES\"" >> $PATH_CONFIGURACION
+		echo "DIRMAE-\"$PATH_BASE$PATH_TABLAS\"" >> $PATH_CONFIGURACION
+		echo "DIRIN-\"$PATH_BASE$PATH_NOVEDADES\"" >> $PATH_CONFIGURACION
+		echo "DIRRECH-\"$PATH_BASE$PATH_RECHAZADAS\"" >> $PATH_CONFIGURACION
+		echo "DIRPROC-\"$PATH_BASE$PATH_LOTES\"" >> $PATH_CONFIGURACION
+		echo "DIROUT-\"$PATH_BASE$PATH_TRANSACCIONES\"" >> $PATH_CONFIGURACION
+		echo "INTSTALACION-\"$(date -R)\"-$USER" >> $PATH_CONFIGURACION
+	
+		#Instalación finalizada
+		ESTADO_INSTALACION="COMPLETADA"
+		echo "Estado de la instalación: $ESTADO_INSTALACION"
+	fi
 }
 
 #Funcion para reparación
@@ -309,7 +385,6 @@ else
 		check_install
 	else
 		MENSAJE="Fin - instalarTP (1). Operación inválida."
-		echo ""
 		echo "$MENSAJE"
 		log_message "$MENSAJE"
 		exit 1
@@ -317,8 +392,8 @@ else
 fi
 
 #Mensaje y log de fin de ejecución
-MENSAJE="Fin - instalarTP (0)"
 echo ""
+MENSAJE="Fin - instalarTP (0)"
 echo "$MENSAJE"
 log_message "$MENSAJE"
 
