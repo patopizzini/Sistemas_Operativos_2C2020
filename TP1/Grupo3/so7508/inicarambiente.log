@@ -1,0 +1,290 @@
+Fri, 20 Nov 2020 21:33:13 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:33:13 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "GRUPO" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRINST" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRBIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRMAE" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRRECH" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIRPROC" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "DIROUT" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:33:13 -0300: El identificador: "INSTALACION" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:40 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:34:40 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "GRUPO" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "DIRINST" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "DIRBIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "DIRMAE" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:40 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "DIRIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "DIRRECH" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "DIRPROC" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "DIROUT" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:34:41 -0300: El identificador: "INSTALACION" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:36 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:35:36 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "GRUPO" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRINST" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRBIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRMAE" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:35:36 -0300: El identificador: "DIRRECH" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:37 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:35:37 -0300: El identificador: "DIRPROC" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:37 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:35:37 -0300: El identificador: "DIROUT" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:37 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:35:37 -0300: El identificador: "INSTALACION" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:35:56 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "GRUPO" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRINST" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRBIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRMAE" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRRECH" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIRPROC" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "DIROUT" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:35:56 -0300: El identificador: "INSTALACION" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:44:57 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "GRUPO" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRINST" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRBIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRMAE" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRRECH" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIRPROC" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "DIROUT" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:44:57 -0300: El identificador: "INSTALACION" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:45:24 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "GRUPO" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRINST" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRBIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRMAE" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRIN" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRRECH" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIRPROC" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "DIROUT" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:45:24 -0300: El identificador: "INSTALACION" NO tiene uso alguno dentro del sistema, será omitido.
+Fri, 20 Nov 2020 21:47:08 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:47:08 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:47:08 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:47:08 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:50:01 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:50:01 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:50:01 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:50:01 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:51:18 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:51:18 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:51:18 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:51:18 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:51:37 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:51:37 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:51:37 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:51:37 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:52:24 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioDIRINST" no existe, correspondiente al código: "DIRINST".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioDIRBIN" no existe, correspondiente al código: "DIRBIN".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioDIRMAE" no existe, correspondiente al código: "DIRMAE".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioDIRIN" no existe, correspondiente al código: "DIRIN".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioDIRRECH" no existe, correspondiente al código: "DIRRECH".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioDIRPROC" no existe, correspondiente al código: "DIRPROC".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "DIROUT" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "directorioDIROUT" no existe, correspondiente al código: "DIROUT".
+Fri, 20 Nov 2020 21:52:24 -0300: El identificador: "INSTALACION" tiene el siguiente valor: "17/11/2020 23:07:12".
+Fri, 20 Nov 2020 21:52:24 -0300: El archivo "17/11/2020 23:07:12" no existe, correspondiente al código: "INSTALACION".
+Fri, 20 Nov 2020 21:59:32 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "directorioDIRINST" no existe, correspondiente al código: "DIRINST".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "directorioDIRBIN" no existe, correspondiente al código: "DIRBIN".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "directorioDIRMAE" no existe, correspondiente al código: "DIRMAE".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "directorioDIRIN" no existe, correspondiente al código: "DIRIN".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "directorioDIRRECH" no existe, correspondiente al código: "DIRRECH".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:59:32 -0300: El archivo "directorioDIRPROC" no existe, correspondiente al código: "DIRPROC".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIROUTs" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:59:32 -0300: El identificador: "DIROUTs" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:59:58 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "directorioDIRINST" no existe, correspondiente al código: "DIRINST".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "directorioDIRBIN" no existe, correspondiente al código: "DIRBIN".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "directorioDIRMAE" no existe, correspondiente al código: "DIRMAE".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "directorioDIRIN" no existe, correspondiente al código: "DIRIN".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "directorioDIRRECH" no existe, correspondiente al código: "DIRRECH".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 21:59:58 -0300: El archivo "directorioDIRPROC" no existe, correspondiente al código: "DIRPROC".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIROUTs" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 21:59:58 -0300: El identificador: "DIROUTs" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 22:01:05 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "directorioDIRINST" no existe, correspondiente al código: "DIRINST".
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "directorioDIRBIN" no existe, correspondiente al código: "DIRBIN".
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "directorioDIRMAE" no existe, correspondiente al código: "DIRMAE".
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "directorioDIRIN" no existe, correspondiente al código: "DIRIN".
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "directorioDIRRECH" no existe, correspondiente al código: "DIRRECH".
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 22:01:05 -0300: El archivo "directorioDIRPROC" no existe, correspondiente al código: "DIRPROC".
+Fri, 20 Nov 2020 22:01:05 -0300: El identificador: "DIROUTs" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 22:01:05 -0300: En la posición: "8" del archivo instalarTP.conf está mal especificado el código:  "DIROUT" para resolverlo ejecute la reparación.
+Fri, 20 Nov 2020 22:02:20 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:02:20 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:02:20 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:02:20 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:02:20 -0300: El identificador: "DIRINST" tiene el siguiente valor: "directorioDIRINST".
+Fri, 20 Nov 2020 22:02:20 -0300: El archivo "directorioDIRINST" no existe, correspondiente al código: "DIRINST".
+Fri, 20 Nov 2020 22:02:20 -0300: El identificador: "DIRBIN" tiene el siguiente valor: "directorioDIRBIN".
+Fri, 20 Nov 2020 22:02:20 -0300: El archivo "directorioDIRBIN" no existe, correspondiente al código: "DIRBIN".
+Fri, 20 Nov 2020 22:02:20 -0300: El identificador: "DIRMAE" tiene el siguiente valor: "directorioDIRMAE".
+Fri, 20 Nov 2020 22:02:20 -0300: El archivo "directorioDIRMAE" no existe, correspondiente al código: "DIRMAE".
+Fri, 20 Nov 2020 22:02:21 -0300: El identificador: "DIRIN" tiene el siguiente valor: "directorioDIRIN".
+Fri, 20 Nov 2020 22:02:21 -0300: El archivo "directorioDIRIN" no existe, correspondiente al código: "DIRIN".
+Fri, 20 Nov 2020 22:02:21 -0300: El identificador: "DIRRECH" tiene el siguiente valor: "directorioDIRRECH".
+Fri, 20 Nov 2020 22:02:21 -0300: El archivo "directorioDIRRECH" no existe, correspondiente al código: "DIRRECH".
+Fri, 20 Nov 2020 22:02:21 -0300: El identificador: "DIRPROC" tiene el siguiente valor: "directorioDIRPROC".
+Fri, 20 Nov 2020 22:02:21 -0300: El archivo "directorioDIRPROC" no existe, correspondiente al código: "DIRPROC".
+Fri, 20 Nov 2020 22:02:21 -0300: El identificador: "DIROUTs" tiene el siguiente valor: "directorioDIROUT".
+Fri, 20 Nov 2020 22:02:21 -0300: En la posición: "8" del archivo instalarTP.conf está mal especificado el código:  "DIROUT" para resolverlo ejecute la reparación.
+Fri, 20 Nov 2020 22:02:49 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:02:49 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:02:49 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:02:49 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:02:49 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:04:33 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:04:33 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:04:33 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:04:33 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:04:33 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:05:26 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:05:26 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:05:26 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:05:26 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:05:26 -0300: En la posición: "1" del archivo instalarTP.conf está mal especificado el directorio para el código:  "" para resolverlo ejecute la reparación.
+Fri, 20 Nov 2020 22:06:29 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:06:29 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:06:29 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:06:29 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:06:29 -0300: En la posición: "1" del archivo instalarTP.conf está mal especificado el directorio para el código:  "GRUPO" para resolverlo ejecute la reparación.
+Fri, 20 Nov 2020 22:07:03 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:07:03 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:07:03 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:07:03 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:07:03 -0300: En la posición: "1" del archivo instalarTP.conf está mal especificado el directorio para el código:  "GRUPO" para resolverlo ejecute la reparación.
+Fri, 20 Nov 2020 22:07:48 -0300: Inicio - iniciarambiente
+Fri, 20 Nov 2020 22:07:48 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado. Procedemos a revisar los directorios.
+Fri, 20 Nov 2020 22:07:48 -0300: El identificador: "GRUPO" tiene el siguiente valor: "directorioGRUPO".
+Fri, 20 Nov 2020 22:07:48 -0300: El archivo "directorioGRUPO" no existe, correspondiente al código: "GRUPO".
+Fri, 20 Nov 2020 22:07:48 -0300: En la posición: "1" del archivo instalarTP.conf está mal especificado el directorio para el código: "GRUPO" para resolverlo ejecute la reparación.
