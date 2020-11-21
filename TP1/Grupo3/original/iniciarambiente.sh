@@ -120,9 +120,14 @@ validar_configuracion() {
 # | Verificar permisos |
 validar_permisos() {
     DIRECTORIO_TEMPORAL="/home/andres/Documents/SISTEMAS OPERATIVOS/TEST/"
-    chmod -R u=r,g=r,o=r "$DIRECTORIO_TEMPORAL"
+    chmod -R u=rwx,g=rwx,o=rwx "$DIRECTORIO_TEMPORAL"
+    MENSAJE="Se otorgó el permiso de lectura para el directorio de las tablas maestras." 
+    echo "$MENSAJE"
+    log_message "$MENSAJE"
     #chmod -R u=rwx,g=rwx,o=rwx "$PATH_EJECUTABLES"
-    echo "listo"
+    MENSAJE="Se otorgó el permiso de ejecución para el directorio de los ejecutables." 
+    echo "$MENSAJE"
+    log_message "$MENSAJE"
 }
 
 #Ir al directorio de tablas maestras y verificar que existan
