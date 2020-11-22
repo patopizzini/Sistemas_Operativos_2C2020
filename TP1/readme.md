@@ -52,10 +52,10 @@ Una instalación exitosa genera los siguientes directorios (nombres por default)
 - **bin**: ejecutables del sistema.
 - **input**: directorio para novedades.
 - **input/ok**: directorio para novedades aceptadas.
-- **lotes**: COMPLETAR
+- **lotes**: lotes ya procesados.
 - **master**: tablas maestras del sistema.
-- **output**: COMPLETAR
-- **output/comisiones**: COMPLETAR
+- **output**: directorio de resultados. 
+- **output/comisiones**: archivo con el cálculo del service charge.
 - **rechazos**: archivos rechazados.
 
 Se crea un log de la instalación, ver en seccion 5 cuál es este archivo.
@@ -87,3 +87,4 @@ Los archivos de log se encuentran en los siguientes directorios:
 
 ### 6. Pruebas completas:
 
+Una vez que se ejecutaron los pasos ***1, 2 y 3*** se dispondrá de un sistema en ejecución. Podrá tomar cualquier archivo del directorio ***catedra o propios*** y depositarlo en el directorio input para procesarlo.
