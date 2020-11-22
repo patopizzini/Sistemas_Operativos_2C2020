@@ -85,9 +85,9 @@ limpiar_variables(){
 validar_directorio(){
     PATHACTUAL=$(echo $2 | sed 's-\"--g')
 
-    if [[ "$1" == "DIRINST" ]]; 
+    if [[ "$1" == "DIRINST" ]]
     then
-        if [[ ! -f "$PATHACTUAL" ]]; 
+        if [[ ! -f "$PATHACTUAL" ]]
         then
             MENSAJE="El archivo de instalación \""$PATHACTUAL\"" no existe, correspondiente al código: \""$1\""."
             echo "$MENSAJE"
@@ -103,7 +103,7 @@ validar_directorio(){
             variables_ambiente "$1" "$PATHACTUAL"
         fi
     else
-        if [[ ! -d "$PATHACTUAL" ]]; 
+        if [[ ! -d "$PATHACTUAL" ]]
         then
             MENSAJE="El directorio \""$PATHACTUAL\"" no existe, correspondiente al código: \""$1\""."
             echo "$MENSAJE"
@@ -209,7 +209,7 @@ validar_archivos() {
     for word in $ARCHIVOS
     do
         CONCATENADO="${DIRMAE}${word}"
-        if [[ ! -f "$CONCATENADO" ]]; 
+        if [[ ! -f "$CONCATENADO" ]]
         then
             MENSAJE="Falta el archivo del directorio de tablas maestras:  \""$CONCATENADO\""."
             echo "$MENSAJE"
@@ -329,7 +329,8 @@ echo ""
 
 #Validacion de existencia del archivo de configuración
 # | Verificar configuración |
-if [[ ! -f "$PATH_CONFIGURACION" ]]; then
+if [[ ! -f "$PATH_CONFIGURACION" ]]
+then
 	MENSAJE="El archivo \""$PATH_CONFIGURACION\"" no existe."
 	echo "$MENSAJE"
     log_message "ERR" "$MENSAJE" "iniciarambiente.sh"
