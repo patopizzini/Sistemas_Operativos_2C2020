@@ -25,7 +25,7 @@ El sistema se encuentra inicialmente desinstalado, por lo que debe proceder a in
 
 1. En una terminal, navegue a la carpeta ***"Grupo3"***, creada en el punto 3 de la sección anterior.
 2. En la terminal, navegue al direcctorio ***/so7508***.
-3. Ejecute el comando ***./instalarTP.sh***
+3. Ejecute el comando ***./instalarTP.sh***.
 
 Si no se detecta el archivo de configuración, se procede a realizar una instalación limpia y el usuario debe nombrar las carpetas que desee utilizar, si solamente toca enter, se instalará en los paths por defecto.
 
@@ -51,7 +51,7 @@ En caso de producirse un error fatal, podrá utilizar el script ***limpiarTP.sh*
 
 1. En una terminal, navegue a la carpeta ***"Grupo3"***, creada en el punto 3 de la primera sección.
 2. En la terminal, navegue al directorio de ejecutables (por defecto es **/bin**).
-3. Ejecute el comando ***./inicializarTP.sh***
+3. Ejecute el comando ***. ./inicializarTP.sh***. Es importante respetar el formato de llamada de este comando, para conservar el entorno generado.
 
 El script correrá en forma no interactiva y dejara el ambiente inicializado. El mismo infomará todas las operaciones realizadas.
 En los directorios ***so7508/instalarTP.log*** y ***so7508/instalarTP.conf*** podrá ver los paths seleccionados luego de la instalación, en el últimoo tambien podrá ver la fecha de la instalación y de las reparaciones realizadas.
