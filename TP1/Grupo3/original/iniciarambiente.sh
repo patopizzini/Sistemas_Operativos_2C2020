@@ -50,9 +50,12 @@ export DIRPROC=""
 export DIROUT=""
 export INICIALIZAR="ERROR"
 
-#Funcion para registrar mensajes en el log
+#Función para registrar mensajes en el log
+#$1 - TIPO (INF/ALE/ERR)
+#$2 - MENSAJE
+#$3 - ORIGEN
 log_message() {
-	echo "$(date -R): $1" >> "$PATH_LOG_INICIALIZACION"
+	echo "\"$(date -R)\"-\"$1\"-\"$2\"-\"$3\"-\"$USER\"" >> "$PATH_LOG_INICIALIZACION"
 }
 
 validar_identificador(){
@@ -71,7 +74,7 @@ validar_directorio(){
     then
         MENSAJE="El directorio \""$PATHACTUAL\"" no existe, correspondiente al código: \""$1\""."
         echo "$MENSAJE"
-        log_message "$MENSAJE"
+        log_message "ERR" "$MENSAJE" "validar_directorio"
         PATH_ERRONEO="$1"
         #Si falla cualquiera limpiamos todas las variables de entorno/ambiente.
         export GRUPO=""
@@ -82,10 +85,11 @@ validar_directorio(){
         export DIRRECH=""
         export DIRPROC=""
         export DIROUT=""
+        exit 0
     else	
         MENSAJE="El directorio \""$PATHACTUAL\"" fue encontrado, correspondiente al código: \""$1\""."
         echo "$MENSAJE"
-        log_message "$MENSAJE"
+        log_message "INF" "$MENSAJE" "validar_directorio"
         #Seteamos en caso de corresponder la variable de entorno/ambiente.
         variables_ambiente "$1" "$PATHACTUAL"
     fi
@@ -100,7 +104,7 @@ validar_configuracion() {
         IDENTIFICADOR=$(echo $LINEA | cut -f1 -d-)
         VALOR=$(echo $LINEA | cut -f2 -d-)
         MENSAJE="El identificador: \""$IDENTIFICADOR\"" tiene el siguiente valor: \""$VALOR\""."
-        log_message "$MENSAJE"
+        log_message "INF" "$MENSAJE" "validar_configuracion"
 
         PATH_ERRONEO=""
         IDENTIFICADOR_ERRONEO=""
@@ -112,27 +116,29 @@ validar_configuracion() {
             then
                 MENSAJE="En la posición: \""$CANTIDAD\"" del archivo instalarTP.conf está mal especificado el código: \""$IDENTIFICADOR_ERRONEO\""." 
                 echo "$MENSAJE"
-                log_message "$MENSAJE"
+                log_message "ERR" "$MENSAJE" "validar_configuracion"
                 MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar." 
                 echo "$MENSAJE"
-                log_message "$MENSAJE"
-                break
+                log_message "ERR" "$MENSAJE" "validar_configuracion"
+                exit 0
+                break #JAH LOL ya no tiene sentido el break.
             fi
             if [ "$PATH_ERRONEO" != "" ]
             then
                 MENSAJE="En la posición: \""$CANTIDAD\"" del archivo instalarTP.conf está mal especificado el directorio para el código: \""$PATH_ERRONEO\""."
                 echo "$MENSAJE"
-                log_message "$MENSAJE"
+                log_message "ERR" "$MENSAJE" "validar_configuracion"
                 MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar." 
                 echo "$MENSAJE"
-                log_message "$MENSAJE"
-                break
+                log_message "ERR" "$MENSAJE" "validar_configuracion"
+                exit 0
+                break #JAH LOL ya no tiene sentido el break.
             fi
             let CANTIDAD="$CANTIDAD"+1
         else
             MENSAJE="El identificador: \""$IDENTIFICADOR\"" NO tiene uso alguno dentro del sistema, será omitido."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "ALE" "$MENSAJE" "validar_configuracion"
         fi
     done < "$PATH_CONFIGURACION"
 }
@@ -145,18 +151,18 @@ validar_permisos() {
     chmod -R u=rwx,g=rwx,o=rwx "$DIRECTORIO_TEMPORAL"
     MENSAJE="Se otorgó el permiso de lectura para el directorio de las tablas maestras." 
     echo "$MENSAJE"
-    log_message "$MENSAJE"
+    log_message "INF" "$MENSAJE" "validar_permisos"
     #chmod -R u=rwx,g=rwx,o=rwx "$PATH_EJECUTABLES"
     MENSAJE="Se otorgó el permiso de ejecución para el directorio de los ejecutables." 
     echo "$MENSAJE"
-    log_message "$MENSAJE"
+    log_message "INF" "$MENSAJE" "validar_permisos"
 }
 
 #Ir al directorio de tablas maestras y verificar que existan
 # | Verificar archivos |
 validar_archivos() {
     DIRECTORIO_TEMPORAL="/home/andres/Documents/SISTEMAS OPERATIVOS/TEST/"
-    ARCHIVOS=${ARCHIVOS//;/$'\n'}  # change the semicolons to white space
+    ARCHIVOS=${ARCHIVOS//;/$'\n'}  # cambiamos puntos y comas por espacios.
     for word in $ARCHIVOS
     do
         CONCATENADO="${DIRECTORIO_TEMPORAL}${word}"
@@ -164,14 +170,15 @@ validar_archivos() {
         then
             MENSAJE="Falta el archivo del directorio de tablas maestras:  \""$CONCATENADO\""."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "ERR" "$MENSAJE" "validar_archivos"
             MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "ERR" "$MENSAJE" "validar_archivos"
+            exit 0
         else	
             MENSAJE="Se encontró el archivo del directorio de tablas maestras:  \""$CONCATENADO\""."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "validar_archivos"
         fi
     done
 }
@@ -185,56 +192,56 @@ variables_ambiente() {
             export GRUPO="$2"        
             MENSAJE="Seteada variable de ambiente GRUPO."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
         if [ "$1" == "DIRINST" ]
         then
             export DIRINST="$2" 
             MENSAJE="Seteada variable de ambiente DIRINST."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
         if [ "$1" == "DIRBIN" ]
         then
             export DIRBIN="$2"
             MENSAJE="Seteada variable de ambiente DIRBIN."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
         if [ "$1" == "DIRMAE" ]
         then
             export DIRMAE="$2"
             MENSAJE="Seteada variable de ambiente DIRMAE."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
         if [ "$1" == "DIRIN" ]
         then
             export DIRIN="$2"
             MENSAJE="Seteada variable de ambiente DIRIN."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
         if [ "$1" == "DIRRECH" ]
         then
             export DIRRECH="$2"
             MENSAJE="Seteada variable de ambiente DIRRECH."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
         if [ "$1" == "DIRPROC" ]
         then
             export DIRPROC="$2"
             MENSAJE="Seteada variable de ambiente DIRPROC."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
         if [ "$1" == "DIROUT" ]
         then
             export DIROUT="$2"
             MENSAJE="Seteada variable de ambiente DIROUT."
             echo "$MENSAJE"
-            log_message "$MENSAJE"
+            log_message "INF" "$MENSAJE" "variables_ambiente"
         fi
 }
 
@@ -245,10 +252,12 @@ arrancar_proceso() {
     export INICIALIZAR="EXITO"
     MENSAJE="La inicialización ha sido exitosa, procedemos a arrancar el proceso principal."
     echo "$MENSAJE"
-    log_message "$MENSAJE"
-    #pprincipal.sh
-    #pgrep -f pprincipal.sh
+    log_message "INF" "$MENSAJE" "arrancar_proceso"
     ./arrancarproceso.sh &
+	export PID_ARRPRO_LAUNCH=$!
+	MENSAJE="Proceso principal iniciado, con PID: $PID_ARRPRO_LAUNCH."
+    echo "$MENSAJE"
+    log_message "INF" "$MENSAJE" "arrancar_proceso"
 }
 
 #Invocar al script pprincipal ADVERTENCIA: no invocar el proceso si ya hay uno corriendo. Avisar cuando pasa eso
@@ -256,13 +265,13 @@ arrancar_proceso() {
 informar_resultados() {
     MENSAJE="process id que le asigno el sistema operativo."
     echo "$MENSAJE"
-    log_message "$MENSAJE"
+    log_message "INF" "$MENSAJE" "informar_resultados"
     MENSAJE="si se quiere detener el proceso se debe usar frenarproceso."
     echo "$MENSAJE"
-    log_message "$MENSAJE"
+    log_message "INF" "$MENSAJE" "informar_resultados"
     MENSAJE="si luego se quiere arrancar hay que hacerlo con arrancarproceso."
     echo "$MENSAJE"
-    log_message "$MENSAJE"
+    log_message "INF" "$MENSAJE" "informar_resultados"
 }
 
 #Limpiamos la pantalla
@@ -272,7 +281,7 @@ clear
 echo 'TP1 - SO75.08 - 2do Cuatrimestre 2020 - Curso Martes Copyright © Grupo 3'
 MENSAJE="Inicio - iniciarambiente"
 echo "$MENSAJE"
-log_message "$MENSAJE"
+log_message "INF" "$MENSAJE" "iniciarambiente.sh"
 echo ""
 
 #Validacion de existencia del archivo de configuración
@@ -280,17 +289,18 @@ echo ""
 if [ ! -f "$PATH_CONFIGURACION" ]; then
 	MENSAJE="El archivo \""$PATH_CONFIGURACION\"" no existe."
 	echo "$MENSAJE"
-	log_message "$MENSAJE"
+    log_message "ERR" "$MENSAJE" "iniciarambiente.sh"
 	MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
 	echo "$MENSAJE"
-	log_message "$MENSAJE"
+    log_message "ERR" "$MENSAJE" "iniciarambiente.sh"
+    exit 0
 else	
 	MENSAJE="El archivo \""$PATH_CONFIGURACION\"" fue encontrado."
 	echo "$MENSAJE"
-	log_message "$MENSAJE"
+    log_message "INF" "$MENSAJE" "iniciarambiente.sh"
 	MENSAJE="Procedemos a revisar los directorios."
 	echo "$MENSAJE"
-	log_message "$MENSAJE"
+    log_message "INF" "$MENSAJE" "iniciarambiente.sh"
     ##Validamos configuracion y directorios.
     validar_configuracion
     ##Validamos archivos.
