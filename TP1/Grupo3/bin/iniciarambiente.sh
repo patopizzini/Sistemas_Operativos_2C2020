@@ -293,7 +293,7 @@ arrancar_proceso() {
     MENSAJE="La inicialización ha sido exitosa, procedemos a arrancar el proceso principal."
     echo "$MENSAJE"
     log_message "INF" "$MENSAJE" "arrancar_proceso"
-    . ./pprincipal.sh &
+    ./pprincipal.sh &
 	export PID_PPAL=$!
 	MENSAJE="Proceso principal iniciado, con PID: $PID_PPAL."
     echo "$MENSAJE"
