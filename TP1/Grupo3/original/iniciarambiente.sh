@@ -36,7 +36,7 @@ PATH_LOG_PROCESO_PPAL="$PATH_BASE/so7508/pprincipal.log"
 #Variable para los strings que van a stdout y al log
 MENSAJE=""
 CODIGOS="GRUPO;DIRINST;DIRBIN;DIRMAE;DIRIN;DIRRECH;DIRPROC;DIROUT;INSTALACION"
-ARCHIVOS="/comercios.txt;/tarjetashomologadas.txt"
+ARCHIVOS="/comercios.txt-/tarjetashomologadas.txt"
 IDENTIFICADOR_ERRONEO=""
 PATH_ERRONEO=""
 
@@ -190,7 +190,6 @@ validar_configuracion() {
 #Los archivos del directorio de ejecutables deben tener permiso de ejecución
 # | Verificar permisos |
 validar_permisos() {
-    DIRECTORIO_TEMPORAL="/home/andres/Documents/SISTEMAS OPERATIVOS/TEST/"
     chmod -R u=rwx,g=rwx,o=rwx "$DIRMAE"
     MENSAJE="Se otorgó el permiso de lectura para el directorio de las tablas maestras." 
     echo "$MENSAJE"
@@ -204,26 +203,40 @@ validar_permisos() {
 #Ir al directorio de tablas maestras y verificar que existan
 # | Verificar archivos |
 validar_archivos() {
-    #DIRECTORIO_TEMPORAL="/home/andres/Documents/SISTEMAS OPERATIVOS/TEST/"
-    ARCHIVOS=${ARCHIVOS//;/$'\n'}  # cambiamos puntos y comas por espacios.
-    for word in $ARCHIVOS
-    do
-        CONCATENADO="${DIRMAE}${word}"
-        if [[ ! -f "$CONCATENADO" ]]
-        then
-            MENSAJE="Falta el archivo del directorio de tablas maestras:  \""$CONCATENADO\""."
-            echo "$MENSAJE"
-            log_message "ERR" "$MENSAJE" "validar_archivos"
-            MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
-            echo "$MENSAJE"
-            log_message "ERR" "$MENSAJE" "validar_archivos"
-            return 1
-        else	
-            MENSAJE="Se encontró el archivo del directorio de tablas maestras:  \""$CONCATENADO\""."
-            echo "$MENSAJE"
-            log_message "INF" "$MENSAJE" "validar_archivos"
-        fi
-    done
+    VAR_COMERCIOS=$(echo $ARCHIVOS | cut -f1 -d-)
+    VAR_TARJETAS=$(echo $ARCHIVOS | cut -f2 -d-)
+
+    CONCATENADO_COMERCIO="${DIRMAE}${VAR_COMERCIOS}"
+    if [[ ! -f "$CONCATENADO_COMERCIO" ]]
+    then
+        MENSAJE="Falta el archivo del directorio de tablas maestras:  \""$CONCATENADO_COMERCIO\""."
+        echo "$MENSAJE"
+        log_message "ERR" "$MENSAJE" "validar_archivos"
+        MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
+        echo "$MENSAJE"
+        log_message "ERR" "$MENSAJE" "validar_archivos"
+        return 1
+    else	
+        MENSAJE="Se encontró el archivo del directorio de tablas maestras:  \""$CONCATENADO_COMERCIO\""."
+        echo "$MENSAJE"
+        log_message "INF" "$MENSAJE" "validar_archivos"
+    fi
+
+    CONCATENADO_TARJETA="${DIRMAE}${VAR_TARJETAS}"
+    if [[ ! -f "$CONCATENADO_TARJETA" ]]
+    then
+        MENSAJE="Falta el archivo del directorio de tablas maestras:  \""$CONCATENADO_TARJETA\""."
+        echo "$MENSAJE"
+        log_message "ERR" "$MENSAJE" "validar_archivos"
+        MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
+        echo "$MENSAJE"
+        log_message "ERR" "$MENSAJE" "validar_archivos"
+        return 1
+    else	
+        MENSAJE="Se encontró el archivo del directorio de tablas maestras:  \""$CONCATENADO_TARJETA\""."
+        echo "$MENSAJE"
+        log_message "INF" "$MENSAJE" "validar_archivos"
+    fi
 }
 
 
