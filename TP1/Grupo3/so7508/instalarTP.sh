@@ -48,6 +48,8 @@ FIX_ARCHIVO_ARRANCAR=0
 FIX_ARCHIVO_FRENAR=0
 FIX_ARCHIVO_INICIAR=0
 FIX_ARCHIVO_PRINCIPAL=0
+FIX_ARCHIVO_COMERCIOS=0
+FIX_ARCHIVO_TARJETAS=0
 
 #Variable con nombres reservados
 #Se pueden agregar los que se deseen
@@ -451,7 +453,23 @@ clean_install() {
 		log_message "ERR" "$MENSAJE" "nueva instalacion"
 		ERR_IC_FLAG=1
 	fi
-	
+	ERR_IC=$(cp "$PATH_BASE/original/comercios.txt" "$PATH_BASE$PATH_TABLAS" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		MENSAJE="Error copiando archivos: $ERR_IC"
+		echo $MENSAJE
+		log_message "ERR" "$MENSAJE" "nueva instalacion"
+		ERR_IC_FLAG=1
+	fi
+	ERR_IC=$(cp "$PATH_BASE/original/tarjetashomologadas.txt" "$PATH_BASE$PATH_TABLAS" 2>&1 >/dev/null)
+	if [[ $? != 0 ]]
+	then
+		MENSAJE="Error copiando archivos: $ERR_IC"
+		echo $MENSAJE
+		log_message "ERR" "$MENSAJE" "nueva instalacion"
+		ERR_IC_FLAG=1
+	fi
+
 	if [[ $ERR_ID_FLAG != 0 ]] || [[ $ERR_IC_FLAG != 0 ]]
 	then
 		ESTADO_INSTALACION="ABORTADA"
@@ -631,6 +649,28 @@ repair_install() {
 		if [[ $FIX_ARCHIVO_PRINCIPAL = 1 ]]
 		then
 			ERR_RF=$(cp "$PATH_BASE/original/pprincipal.sh" "$PATH_EJECUTABLES" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				MENSAJE="Error copiando archivos: $ERR_RF"
+				echo $MENSAJE
+				log_message "ERR" "$MENSAJE" "reparar instalacion"
+				ERR_RF_FLAG=1
+			fi
+		fi
+		if [[ $FIX_ARCHIVO_COMERCIOS = 1 ]]
+		then
+			ERR_RF=$(cp "$PATH_BASE/original/comercios.txt" "$PATH_TABLAS" 2>&1 >/dev/null)
+			if [[ $? != 0 ]]
+			then
+				MENSAJE="Error copiando archivos: $ERR_RF"
+				echo $MENSAJE
+				log_message "ERR" "$MENSAJE" "reparar instalacion"
+				ERR_RF_FLAG=1
+			fi
+		fi
+		if [[ $FIX_ARCHIVO_TARJETAS = 1 ]]
+		then
+			ERR_RF=$(cp "$PATH_BASE/original/tarjetashomologadas.txt" "$PATH_TABLAS" 2>&1 >/dev/null)
 			if [[ $? != 0 ]]
 			then
 				MENSAJE="Error copiando archivos: $ERR_RF"
@@ -837,6 +877,22 @@ check_install() {
 		echo $MENSAJE
 		log_message "ALE" "$MENSAJE" "chequear instalacion"
 		FIX_ARCHIVO_PRINCIPAL=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -f "$PATH_TABLAS/comercios.txt" ]]
+	then
+		MENSAJE="No se encontró el archivo: \"$PATH_TABLAS/comercios.txt\""
+		echo $MENSAJE
+		log_message "ALE" "$MENSAJE" "chequear instalacion"
+		FIX_ARCHIVO_COMERCIOS=1
+		DEBE_REPARAR=1
+	fi
+	if [[ ! -f "$PATH_TABLAS/tarjetashomologadas.txt" ]]
+	then
+		MENSAJE="No se encontró el archivo: \"$PATH_TABLAS/tarjetashomologadas.txt\""
+		echo $MENSAJE
+		log_message "ALE" "$MENSAJE" "chequear instalacion"
+		FIX_ARCHIVO_TARJETAS=1
 		DEBE_REPARAR=1
 	fi
 
