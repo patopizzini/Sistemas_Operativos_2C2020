@@ -18,7 +18,6 @@ while true
 do
 	#El primer ciclo es 1
 	let "NUMERO_CICLO++"
-
 	#Sleep para tener una pausa entre ejecuciones (parametrizable)
 	sleep "$INTERVALO_SEGUNDOS"
 done

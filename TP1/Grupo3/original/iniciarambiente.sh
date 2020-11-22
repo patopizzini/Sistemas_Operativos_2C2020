@@ -40,6 +40,16 @@ ARCHIVOS="archivo1.txt;archivo2.txt;archivo3.txt"
 IDENTIFICADOR_ERRONEO=""
 PATH_ERRONEO=""
 
+export GRUPO=""
+export DIRINST=""
+export DIRBIN=""
+export DIRMAE=""
+export DIRIN=""
+export DIRRECH=""
+export DIRPROC=""
+export DIROUT=""
+export INICIALIZAR="ERROR"
+
 #Funcion para registrar mensajes en el log
 log_message() {
 	echo "$(date -R): $1" >> "$PATH_LOG_INICIALIZACION"
@@ -56,16 +66,28 @@ validar_identificador(){
 }
 
 validar_directorio(){
-    if [ ! -d "$2" ]; 
+    PATHACTUAL=$(echo $2 | sed 's-\"--g')
+    if [ ! -d "$PATHACTUAL" ]; 
     then
-        MENSAJE="El directorio \""$2\"" no existe, correspondiente al código: \""$1\""."
+        MENSAJE="El directorio \""$PATHACTUAL\"" no existe, correspondiente al código: \""$1\""."
         echo "$MENSAJE"
         log_message "$MENSAJE"
         PATH_ERRONEO="$1"
+        #Si falla cualquiera limpiamos todas las variables de entorno/ambiente.
+        export GRUPO=""
+        export DIRINST=""
+        export DIRBIN=""
+        export DIRMAE=""
+        export DIRIN=""
+        export DIRRECH=""
+        export DIRPROC=""
+        export DIROUT=""
     else	
-        MENSAJE="El directorio \""$2\"" fue encontrado, correspondiente al código: \""$1\""."
+        MENSAJE="El directorio \""$PATHACTUAL\"" fue encontrado, correspondiente al código: \""$1\""."
         echo "$MENSAJE"
         log_message "$MENSAJE"
+        #Seteamos en caso de corresponder la variable de entorno/ambiente.
+        variables_ambiente "$1" "$PATHACTUAL"
     fi
 }
 
@@ -157,14 +179,76 @@ validar_archivos() {
 
 #Todos los identificadores del archivo de configuración deben convertirse en variables de ambiente
 # | Variables de ambiente |
-variables_ambiente() {
-    echo "validar_ambiente"
+variables_ambiente() {        
+        if [ "$1" == "GRUPO" ]
+        then
+            export GRUPO="$2"        
+            MENSAJE="Seteada variable de ambiente GRUPO."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
+        if [ "$1" == "DIRINST" ]
+        then
+            export DIRINST="$2" 
+            MENSAJE="Seteada variable de ambiente DIRINST."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
+        if [ "$1" == "DIRBIN" ]
+        then
+            export DIRBIN="$2"
+            MENSAJE="Seteada variable de ambiente DIRBIN."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
+        if [ "$1" == "DIRMAE" ]
+        then
+            export DIRMAE="$2"
+            MENSAJE="Seteada variable de ambiente DIRMAE."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
+        if [ "$1" == "DIRIN" ]
+        then
+            export DIRIN="$2"
+            MENSAJE="Seteada variable de ambiente DIRIN."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
+        if [ "$1" == "DIRRECH" ]
+        then
+            export DIRRECH="$2"
+            MENSAJE="Seteada variable de ambiente DIRRECH."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
+        if [ "$1" == "DIRPROC" ]
+        then
+            export DIRPROC="$2"
+            MENSAJE="Seteada variable de ambiente DIRPROC."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
+        if [ "$1" == "DIROUT" ]
+        then
+            export DIROUT="$2"
+            MENSAJE="Seteada variable de ambiente DIROUT."
+            echo "$MENSAJE"
+            log_message "$MENSAJE"
+        fi
 }
 
 #Invocar al script pprincipal ADVERTENCIA: no invocar el proceso si ya hay uno corriendo. Avisar cuando pasa eso
 # | Arrancar el proceso |
 arrancar_proceso() {
-    echo "arrancar_proceso"
+    #Variable de entorno que hace referencia el estado de la inicialización.
+    export INICIALIZAR="EXITO"
+    MENSAJE="La inicialización ha sido exitosa, procedemos a arrancar el proceso principal."
+    echo "$MENSAJE"
+    log_message "$MENSAJE"
+    #pprincipal.sh
+    #pgrep -f pprincipal.sh
+    ./arrancarproceso.sh &
 }
 
 #Invocar al script pprincipal ADVERTENCIA: no invocar el proceso si ya hay uno corriendo. Avisar cuando pasa eso

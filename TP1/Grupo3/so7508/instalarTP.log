@@ -606,6 +606,7 @@ Sat, 21 Nov 2020 15:55:05 -0300: El archivo "/Users/juan0511/Temporary/75.08/TP/
 Sat, 21 Nov 2020 15:55:05 -0300: Tipo de ejecución: INSTALACIÓN.
 Sat, 21 Nov 2020 15:55:10 -0300: Confirmar Proceso - instalarTP
 Sat, 21 Nov 2020 15:55:12 -0300: Fin - instalarTP (0)
+<<<<<<< Updated upstream
 Sat, 21 Nov 2020 16:17:15 -0300: Inicio - instalarTP
 Sat, 21 Nov 2020 16:17:15 -0300: El archivo "/Users/juan0511/Temporary/75.08/TP/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado.
 Sat, 21 Nov 2020 16:17:15 -0300: Tipo de ejecución: CHEQUEO.
@@ -925,3 +926,25 @@ Sat, 21 Nov 2020 18:38:02 -0300: Inicio - instalarTP
 Sat, 21 Nov 2020 18:38:02 -0300: El archivo "/Users/juan0511/Temporary/75.08/TP/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado.
 Sat, 21 Nov 2020 18:38:02 -0300: Tipo de ejecución: CHEQUEO.
 Sat, 21 Nov 2020 18:38:02 -0300: Fin - instalarTP (0)
+=======
+Sat, 21 Nov 2020 16:28:59 -0300: Inicio - instalarTP
+Sat, 21 Nov 2020 16:28:59 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado.
+Sat, 21 Nov 2020 16:28:59 -0300: Tipo de ejecución: CHEQUEO.
+Sat, 21 Nov 2020 16:28:59 -0300: Fin - instalarTP (0)
+>>>>>>> Stashed changes
+Sat, 21 Nov 2020 20:21:41 -0300: Inicio - instalarTP
+Sat, 21 Nov 2020 20:21:41 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado.
+Sat, 21 Nov 2020 20:21:41 -0300: Tipo de ejecución: CHEQUEO.
+Sat, 21 Nov 2020 20:21:51 -0300: Fin - instalarTP (1)
+Sat, 21 Nov 2020 20:22:32 -0300: Inicio - instalarTP
+Sat, 21 Nov 2020 20:22:32 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado.
+Sat, 21 Nov 2020 20:22:32 -0300: Tipo de ejecución: CHEQUEO.
+Sat, 21 Nov 2020 20:22:36 -0300: Fin - instalarTP (1)
+Sat, 21 Nov 2020 20:24:00 -0300: Inicio - instalarTP
+Sat, 21 Nov 2020 20:24:00 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado.
+Sat, 21 Nov 2020 20:24:00 -0300: Tipo de ejecución: CHEQUEO.
+Sat, 21 Nov 2020 20:24:03 -0300: Fin - instalarTP (1)
+Sat, 21 Nov 2020 20:27:03 -0300: Inicio - instalarTP
+Sat, 21 Nov 2020 20:27:03 -0300: El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado.
+Sat, 21 Nov 2020 20:27:03 -0300: Tipo de ejecución: CHEQUEO.
+Sat, 21 Nov 2020 20:27:07 -0300: Fin - instalarTP (1)

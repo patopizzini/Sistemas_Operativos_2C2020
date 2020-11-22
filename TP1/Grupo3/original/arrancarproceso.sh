@@ -8,6 +8,6 @@
 #97524 - PIZZINI, PATRICIO (ppizzini@fi.uba.ar)
 #
 #TP1 - arrancaproceso
-
-
+echo "$INICIALIZAR"
+./pprincipal.sh &
 exit 0
