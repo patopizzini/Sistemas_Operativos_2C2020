@@ -469,7 +469,7 @@ clean_install() {
 		exit 1
 	else
 		#Escritura de archivo de configuración
-		echo "GRUPO-\"$PATH_BASE\"" > "$PATH_BASEIGURACION"
+		echo "GRUPO-\"$PATH_BASE\"" > "$PATH_CONFIGURACION"
 		echo "DIRINST-\"$PATH_SCRIPT_INSTALACION\"" >> "$PATH_CONFIGURACION"
 		echo "DIRBIN-\"$PATH_BASE$PATH_EJECUTABLES\"" >> "$PATH_CONFIGURACION"
 		echo "DIRMAE-\"$PATH_BASE$PATH_TABLAS\"" >> "$PATH_CONFIGURACION"
