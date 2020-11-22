@@ -31,7 +31,7 @@ PATH_COMISIONES="/comisiones"
 PATH_SCRIPT_INSTALACION="$PATH_BASE/so7508/instalarTP.sh"
 PATH_LOG_INSTALACION="$PATH_BASE/so7508/instalarTP.log"
 PATH_CONFIGURACION="$PATH_BASE/so7508/instalarTP.conf"
-PATH_LOG_INICIALIZACION="$PATH_BASE/so7508/inicarambiente.log"
+PATH_LOG_INICIALIZACION="$PATH_BASE/so7508/iniciarambiente.log"
 PATH_LOG_PROCESO_PPAL="$PATH_BASE/so7508/pprincipal.log"
 
 #Variables de control para el reparar instalación
