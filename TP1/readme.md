@@ -39,7 +39,8 @@ Los nombres reservados, y que no se pueden utilizar, son:
 
 Además, no se puede repetir paths usados en otras carpetas.
 
-Los paths a ingresar son relativos al directorio base y debe iniciarse con '**/**'. 
+Los paths a ingresar son relativos al directorio base y debe iniciarse con '**/**'.
+El directorio de binarios (por defecto es **/bin**) debe encontrase en el primer nivel de la estructura. El resto es libre, por ejemplo se puede agrupar en un solo sub-directorio.
 No se deben utilizar comillas ni escapear los espacios.
 
 Si se detecta que existe un archivo de configuración, se ejecuta un chequeo automático y se repara en caso de ser necesario. 
