@@ -43,10 +43,12 @@ Los paths a ingresar son relativos al directorio base y debe iniciarse con '**/*
 El directorio de binarios (por defecto es **/bin**) debe encontrase en el primer nivel de la estructura. El resto es libre, por ejemplo se puede agrupar en un solo sub-directorio.
 No se deben utilizar comillas ni escapear los espacios.
 
-Si se detecta que existe un archivo de configuración, se ejecuta un chequeo automático y se repara en caso de ser necesario. 
+Si se detecta que existe un archivo de configuración, se ejecuta un chequeo automático y se repara automáticamente en caso de ser necesario. 
 El usuario debe confirmar que desea reparar.
 
 En caso de producirse un error fatal, podrá utilizar el script ***limpiarTP.sh*** para borrar los archivos generados por el instalador (sólo funciona con valores default).
+
+Se crea un log de la instalación, ver en seccion 6 cuál es este archivo.
 
 ### 3. Guía para la inicialización del sistema:
 
