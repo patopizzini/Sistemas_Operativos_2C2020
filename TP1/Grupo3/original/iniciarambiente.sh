@@ -40,15 +40,9 @@ ARCHIVOS="/comercios.txt-/tarjetashomologadas.txt"
 IDENTIFICADOR_ERRONEO=""
 PATH_ERRONEO=""
 
-export GRUPO=""
-export DIRINST=""
-export DIRBIN=""
-export DIRMAE=""
-export DIRIN=""
-export DIRRECH=""
-export DIRPROC=""
-export DIROUT=""
-export INICIALIZAR="ERROR"
+#Variables de control de flujo
+ERRORLVL_CONFIG=1
+ERRORLVL_FILES=1
 
 #Función para registrar mensajes en el log
 #$1 - TIPO (INF/ALE/ERR)
@@ -94,7 +88,8 @@ validar_directorio(){
             log_message "ERR" "$MENSAJE" "validar_directorio"
             PATH_ERRONEO="$1"
             limpiar_variables
-            return 1
+			
+            return
         else	
             MENSAJE="El archivo de instalación \""$PATHACTUAL\"" fue encontrado, correspondiente al código: \""$1\""."
             echo "$MENSAJE"
@@ -110,7 +105,8 @@ validar_directorio(){
             log_message "ERR" "$MENSAJE" "validar_directorio"
             PATH_ERRONEO="$1"
             limpiar_variables
-            return 1
+			
+            return
         else	
             MENSAJE="El directorio \""$PATHACTUAL\"" fue encontrado, correspondiente al código: \""$1\""."
             echo "$MENSAJE"
@@ -145,7 +141,9 @@ validar_configuracion() {
                     MENSAJE="En la posición 9 del archivo de configuración no se encuentra el código INSTALACION, por favor vuelva a correr instalarTP.sh con la opción de reparar." 
                     echo "$MENSAJE"
                     log_message "ERR" "$MENSAJE" "validar_configuracion"
-                    return 1
+                    ERRORLVL_CONFIG=1
+
+					return
                 else
                     MENSAJE="En la posición 9 del archivo de configuración encontramos el valor INSTALACION, con lo cual proseguimos la inicialización." 
                     echo "$MENSAJE"
@@ -162,8 +160,9 @@ validar_configuracion() {
                     MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar." 
                     echo "$MENSAJE"
                     log_message "ERR" "$MENSAJE" "validar_configuracion"
-                    return 1
-                    break #JAH LOL ya no tiene sentido el break.
+                    ERRORLVL_CONFIG=1
+
+					return
                 fi
                 if [[ "$PATH_ERRONEO" != "" ]]
                 then
@@ -173,8 +172,9 @@ validar_configuracion() {
                     MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar." 
                     echo "$MENSAJE"
                     log_message "ERR" "$MENSAJE" "validar_configuracion"
-                    return 1
-                    break #JAH LOL ya no tiene sentido el break.
+                    ERRORLVL_CONFIG=1
+
+					return
                 fi
             fi
             let CANTIDAD="$CANTIDAD"+1
@@ -184,6 +184,8 @@ validar_configuracion() {
             log_message "ALE" "$MENSAJE" "validar_configuracion"
         fi
     done < "$PATH_CONFIGURACION"
+	
+    ERRORLVL_CONFIG=0
 }
 
 #Los archivos del directorio de tablas maestras deben tener permiso de lectura
@@ -215,7 +217,9 @@ validar_archivos() {
         MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
         echo "$MENSAJE"
         log_message "ERR" "$MENSAJE" "validar_archivos"
-        return 1
+        ERRORLVL_FILES=1
+
+		return
     else	
         MENSAJE="Se encontró el archivo del directorio de tablas maestras:  \""$CONCATENADO_COMERCIO\""."
         echo "$MENSAJE"
@@ -231,12 +235,16 @@ validar_archivos() {
         MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
         echo "$MENSAJE"
         log_message "ERR" "$MENSAJE" "validar_archivos"
-        return 1
+        ERRORLVL_FILES=1
+		
+		return
     else	
         MENSAJE="Se encontró el archivo del directorio de tablas maestras:  \""$CONCATENADO_TARJETA\""."
         echo "$MENSAJE"
         log_message "INF" "$MENSAJE" "validar_archivos"
     fi
+	
+    ERRORLVL_FILES=0
 }
 
 
@@ -350,39 +358,51 @@ then
 	MENSAJE="Por favor vuelva a ejecutar instalarTP con la opción reparar."
 	echo "$MENSAJE"
     log_message "ERR" "$MENSAJE" "iniciarambiente.sh"
-    return 1
-else	
-
-    	PID_PPAL=$(pgrep -f pprincipal)
-		if [[ "$PID_PPAL" -gt 0 ]]
+else
+	PID_PPAL=$(pgrep -f pprincipal)
+	if [[ "$PID_PPAL" -gt 0 ]]
+	then
+		MENSAJE="El proceso principal ya se encuentra corriendo, con PID: $PID_PPAL."
+		echo "$MENSAJE"
+		log_message "ALE" "$MENSAJE" "iniciarambiente.sh"
+		MENSAJE="Si se quiere iniciar de nuevo, antes debe detener el proceso con frenarproceso"
+		echo "$MENSAJE"
+		log_message "ALE" "$MENSAJE" "iniciarambiente.sh"
+	else
+		#Variables a exportar al ambiente
+		export GRUPO=""
+		export DIRINST=""
+		export DIRBIN=""
+		export DIRMAE=""
+		export DIRIN=""
+		export DIRRECH=""
+		export DIRPROC=""
+		export DIROUT=""
+		export INICIALIZAR="ERROR"
+		
+		MENSAJE="El archivo \""$PATH_CONFIGURACION\"" fue encontrado."
+		echo "$MENSAJE"
+		log_message "INF" "$MENSAJE" "iniciarambiente.sh"
+		MENSAJE="Procedemos a revisar los directorios."
+		echo "$MENSAJE"
+		log_message "INF" "$MENSAJE" "iniciarambiente.sh"
+		##Validamos configuracion y directorios.
+		validar_configuracion
+		if [[ $ERRORLVL_CONFIG -eq 0 ]]
 		then
-			MENSAJE="El proceso principal ya se encuentra corriendo, con PID: $PID_PPAL."
-            echo "$MENSAJE"
-            log_message "ALE" "$MENSAJE" "iniciarambiente.sh"
-			MENSAJE="Si se quiere iniciar de nuevo, antes debe detener el proceso con frenarproceso"
-            echo "$MENSAJE"
-            log_message "ALE" "$MENSAJE" "iniciarambiente.sh"
-			return 1
-		else
-            MENSAJE="El archivo \""$PATH_CONFIGURACION\"" fue encontrado."
-            echo "$MENSAJE"
-            log_message "INF" "$MENSAJE" "iniciarambiente.sh"
-            MENSAJE="Procedemos a revisar los directorios."
-            echo "$MENSAJE"
-            log_message "INF" "$MENSAJE" "iniciarambiente.sh"
-            ##Validamos configuracion y directorios.
-            validar_configuracion
-            ##Validamos archivos.
-            validar_archivos
-            ##Validamos permisos.
-            validar_permisos
-            ##Variables de ambiente
-            variables_ambiente
-            ##Arrancar el proceso
-            arrancar_proceso
-            ##Informar process id, como detener y arrancar el proceso
-            informar_resultados
+			##Validamos archivos.
+			validar_archivos
+			if [[ $ERRORLVL_FILES -eq 0 ]]
+			then
+				##Validamos permisos.
+				validar_permisos
+				##Variables de ambiente
+				variables_ambiente
+				##Arrancar el proceso
+				arrancar_proceso
+				##Informar process id, como detener y arrancar el proceso
+				informar_resultados
+			fi
 		fi
+	fi
 fi
-
-return 0
