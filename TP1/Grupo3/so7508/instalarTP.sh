@@ -657,7 +657,7 @@ repair_install() {
 			exit 1
 		else
 			#Agregamos al archivo de configuración el registro de reparación
-			echo "REPARACION-\"$(date -R)\"-$USER" >> $PATH_CONFIGURACION
+			echo "REPARACION-\"$(date -R)\"-$USER" >> "$PATH_CONFIGURACION"
 	
 			#Reparación finalizada
 			ESTADO_INSTALACION="REPARADA"
