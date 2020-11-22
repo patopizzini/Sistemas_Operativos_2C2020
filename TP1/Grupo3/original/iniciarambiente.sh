@@ -330,10 +330,10 @@ informar_resultados() {
     MENSAJE="process id que le asigno el sistema operativo."
     echo "$MENSAJE"
     log_message "INF" "$MENSAJE" "informar_resultados"
-    MENSAJE="si se quiere detener el proceso se debe usar frenarproceso."
+    MENSAJE="si se quiere detener el proceso se debe usar \"./frenarproceso.sh\" ."
     echo "$MENSAJE"
     log_message "INF" "$MENSAJE" "informar_resultados"
-    MENSAJE="si luego se quiere arrancar hay que hacerlo con arrancarproceso."
+    MENSAJE="si luego se quiere arrancar hay que hacerlo con \"./arrancarproceso.sh\" ."
     echo "$MENSAJE"
     log_message "INF" "$MENSAJE" "informar_resultados"
 }
