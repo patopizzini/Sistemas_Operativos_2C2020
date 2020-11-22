@@ -17,3 +17,8 @@
 "Sun, 22 Nov 2020 01:04:32 -0300"-"INF"-"process id que le asigno el sistema operativo."-"informar_resultados"-"andres"
 "Sun, 22 Nov 2020 01:04:32 -0300"-"INF"-"si se quiere detener el proceso se debe usar frenarproceso."-"informar_resultados"-"andres"
 "Sun, 22 Nov 2020 01:04:32 -0300"-"INF"-"si luego se quiere arrancar hay que hacerlo con arrancarproceso."-"informar_resultados"-"andres"
+"Sun, 22 Nov 2020 01:17:27 -0300"-"INF"-"Inicio - iniciarambiente"-"iniciarambiente.sh"-"andres"
+"Sun, 22 Nov 2020 01:17:27 -0300"-"INF"-"El archivo "/home/andres/Documents/SISTEMAS OPERATIVOS/TP1/Sistemas_Operativos_2C2020/TP1/Grupo3/so7508/instalarTP.conf" fue encontrado."-"iniciarambiente.sh"-"andres"
+"Sun, 22 Nov 2020 01:17:27 -0300"-"INF"-"Procedemos a revisar los directorios."-"iniciarambiente.sh"-"andres"
+"Sun, 22 Nov 2020 01:17:27 -0300"-"INF"-"El identificador: "GRUPO" tiene el siguiente valor: ""/Users/juan0511/Temporary/75.08/TP/Sistemas_Operativos_2C2020/TP1/Grupo3""."-"validar_configuracion"-"andres"
+"Sun, 22 Nov 2020 01:17:27 -0300"-"ERR"-"El directorio "/Users/juan0511/Temporary/75.08/TP/Sistemas_Operativos_2C2020/TP1/Grupo3" no existe, correspondiente al código: "GRUPO"."-"validar_directorio"-"andres"
