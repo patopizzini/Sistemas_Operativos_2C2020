@@ -19,7 +19,7 @@ PATH_CONFIGURACION="$PATH_BASE/so7508/instalarTP.conf"
 PATH_LOG_PROCESO_PPAL="$PATH_BASE/so7508/pprincipal.log"
 
 #Configuración del intevalo entre ejecuciones, 8 segundos por enunciado
-INTERVALO_SEGUNDOS=60
+INTERVALO_SEGUNDOS=10 #60
 NUMERO_CICLO=0
 
 #Función para registrar mensajes en el log
@@ -50,8 +50,8 @@ procesar_input(){
 	while IFS= read -r -d $'\0';
 	do
 		ARCHIVOS_PROCESADOS+=("$REPLY")
-	done < <(find "$DIRPROC" -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" -print0)
-
+	done < <(find "$DIRPROC" -maxdepth 1 -type f -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" -print0)
+	
 	find "$DIRIN" -maxdepth 1 -type f -not -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" |
 	while read file
 	do
@@ -63,8 +63,12 @@ procesar_input(){
 		fi
 	done
 
-	find "$DIRIN" -maxdepth 1 -type f -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" |
-	while read file
+	ARCHIVOS_POSIBLES=()
+	while IFS= read -r -d $'\0';
+	do
+		ARCHIVOS_POSIBLES+=("$REPLY")
+	done < <(find "$DIRIN" -maxdepth 1 -type f -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" -print0)
+	for file in "${ARCHIVOS_POSIBLES[@]}"
 	do
 		if [[ -f "$file" ]]
 		then
@@ -103,7 +107,7 @@ procesar_input(){
 					
 						if [[ $DUPLICADO -eq 0 ]]
 						then
-							ARCHIVOS_ACEPTADOS+=("$(basename -- \"$file\")") 
+							ARCHIVOS_ACEPTADOS+=("$(basename -- \"$file\")")
 							MENSAJE="El archivo \"$file\" fue aceptado. Se movió a aceptados."
 							log_message "INF" "$MENSAJE" "procesar input"
 							mv "$file" "$DIRIN/ok"
@@ -113,9 +117,6 @@ procesar_input(){
 			fi
 		fi
 	done
-
-	MENSAJE="Fin de clasificación de archivos."
-	log_message "INF" "$MENSAJE" "procesar input"
 }
 
 #Mensaje y log de inicio
@@ -190,9 +191,23 @@ do
 	#Array con archivos candidatos para los pasos siguientes
 	ARCHIVOS_ACEPTADOS=()
 	procesar_input
-
-	#Validar candidatos
-	#Calcular comisiones y generar salida
+	CANT_ARCHIVOS_ACEPTADOS=${#ARCHIVOS_ACEPTADOS[@]}
+	MENSAJE="Se encontraron $CANT_ARCHIVOS_ACEPTADOS candidatos en \"$DIRIN\"."
+	log_message "INF" "$MENSAJE" "pprincipal.sh"
+	MENSAJE="Fin de clasificación de archivos."
+	log_message "INF" "$MENSAJE" "pprincipal.sh"
+	
+	if [[ $CANT_ARCHIVOS_ACEPTADOS -gt 0 ]]
+	then
+		
+		#Validar candidatos
+		MENSAJE="Fin de validación de candidatos."
+		log_message "INF" "$MENSAJE" "pprincipal.sh"
+		
+		#Calcular comisiones y generar salida
+		MENSAJE="Fin de cálculo de comisiones y escritura de salida."
+		log_message "INF" "$MENSAJE" "pprincipal.sh"
+	fi
 	
 	#Sleep para tener una pausa entre ejecuciones (parametrizable)
 	MENSAJE="Durmiendo $INTERVALO_SEGUNDOS segundos."
