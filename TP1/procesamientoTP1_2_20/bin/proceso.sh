@@ -41,54 +41,81 @@ do
 done <"$codComercio"
 
 }
+function validarNombreTarjetasHomologadas(){
+codTarjetasHomologadas="$ARCH_TARJETASHOMOLOGAS"
+while IFS=',' read id_payment_method col2 col3 col4 col5 col6
+do
+    if [[ "$posibleIDpaymont" == "$id_payment_method" ]];
+    then
+         echo "esto es $id_payment_method"
+        return 0
+       
+    fi
+done < "$codTarjetasHomologadas"
+}
 #vemos en archivo Imput/ok que son los archivos que pasaron el primerfiltro
-function verificarRegistroCabecera()
+function verificarRegistroCabeceraYTransaccion()
 {
-    let cantRegistroPorArch=0;
-    for file in "$PATH_ACEPTADOS/"*.csv;
+    
+    for fileAceptado in "$PATH_ACEPTADOS/"*.csv;
     do
        
         if [ "$(ls $PATH_ACEPTADOS/)" ];
         then
             #me quedo hasta el ultimo / osea *.csv
             #fraccionamos el nombre del archivo
-            nomarchivoAceptado="${file##*$PATH_ACEPTADOS/}"
+            nomarchivoAceptado="${fileAceptado##*$PATH_ACEPTADOS/}"
             nomarchMerchantCode="${nomarchivoAceptado:1:8}"
             #vamos por el registro de un archivo
             registroArch="$PATH_ACEPTADOS/$nomarchivoAceptado"
-            contadorRegistro=00000001;
-            while IFS=',' read col1 col2 col3 col4 col5 col6 col7 col8 col9 col10 col11 col12 col13 col14
+            cantidaDeRegistros=$(wc -l "$registroArch" | awk '{print $1}');
+            
+            
+            let "cantidaDeRegistros = cantidaDeRegistros - 1"
+            numregistro=1
+            while IFS=',' read col1 col2 col3 col4 posibleIDpaymont col6 col7 col8 col9 col10 col11 col12 col13 col14
             do
-                  echo "$nomarchMerchantCode"
-                  echo "$col1"
-                  echo "$col3"
-                  echo "$col7"
-                  echo "$col2"
-
-                #estamos en el registro cero
-                if  [[ contadorRegistro -eq 00000001 ]] && [[ $col1 == "TFH" ]] && [[ $col3 == "$nomarchMerchantCode" ]] && [[ $col7 -ne 0 ]]
+               
+                nozerocol2=$(echo $col2 | sed 's/^0*//')
+               
+                if [[ $nozerocol2 == $numregistro ]] && [[ $col1 == "TFH" ]] && [[ $col3 == "$nomarchMerchantCode" ]] && [[ $col7  == $cantidaDeRegistros ]]
                 then
-                    let contadorRegistro=contadorRegistro+1;
-                    cantRegistroPorArch=$col7;
-                    cumplecabecera=0;
-                    echo "$contadorRegistro"
-                    echo "$cantRegistroPorArch"
-                   
-                fi
-                if                 
-                
-
-                
-                   echo "$"
-                 #  return 0
+                                  
+                    cumplecabecera=0;                
                     
-
-
-
+                fi
+                
+                if [[ "$cumplecabecera" == 0 ]]
+                then
+                    if validarNombreTarjetasHomologadas #validamos la columna 5 con tarjetas homologadas
+                    then
+                         if [[ $nozerocol2 == $numregistro ]] && [[ $col1 == "TFD" ]]
+                         then
+                            if [ $col12 == "000000" ] || [ $col12 == "111111" ]
+                            then
+                             return 0
+                            else
+                                mv "$fileAceptado" "$PATH_RECHAZADOS"
+                            fi
+                        fi
+                    fi 
+                fi
+                let "numregistro=numregistro+1"
+                 
             done <"$registroArch"
         fi
     done
    
+}
+
+
+
+function generarArchivoLiquidacion(){
+    
+
+
+
+
 }
 
 #============Principal===================
@@ -105,7 +132,10 @@ do
         if validarNombreArchivoInput
         then
          mv "$file" "$PATH_ACEPTADOS"
-         verificarRegistroCabecera        
+         if verificarRegistroCabeceraYTransaccion        
+         then
+            echo "paso los filtros ahora  generar informes"
+         fi
 
         else
         mv "$file" "$PATH_RECHAZADOS"
