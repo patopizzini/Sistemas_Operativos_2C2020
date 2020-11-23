@@ -19,7 +19,7 @@ PATH_CONFIGURACION="$PATH_BASE/so7508/instalarTP.conf"
 PATH_LOG_PROCESO_PPAL="$PATH_BASE/so7508/pprincipal.log"
 
 #Configuración del intevalo entre ejecuciones, 8 segundos por enunciado
-INTERVALO_SEGUNDOS=10
+INTERVALO_SEGUNDOS=60
 NUMERO_CICLO=0
 
 #Función para registrar mensajes en el log
