@@ -13,7 +13,7 @@ if [[ -f "./pprincipal.sh" ]]
 then
 	if [[ "$INICIALIZAR" == "EXITO" ]]
 	then
-		PID_PPAL=$(pgrep -f pprincipal)
+		PID_PPAL=$(pgrep -fn pprincipal)
 		if [[ "$PID_PPAL" -gt 0 ]]
 		then
 			echo "El proceso principal ya se encuentra corriendo, con PID: $PID_PPAL."

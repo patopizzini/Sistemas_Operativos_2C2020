@@ -60,7 +60,7 @@ then
 fi
 
 #Verificamos si el proceso no se encuentra corriendo
-PID_PPAL=$(pgrep -f pprincipal)
+PID_PPAL=$(pgrep -fn pprincipal)
 if [[ "$PID_PPAL" -gt 0 ]] && [[ "$PID_PPAL" -ne "$$" ]]
 then
 	MENSAJE="El proceso principal ya se encuentra corriendo, con PID: $PID_PPAL."

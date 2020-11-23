@@ -359,7 +359,7 @@ then
 	echo "$MENSAJE"
     log_message "ERR" "$MENSAJE" "iniciarambiente.sh"
 else
-	PID_PPAL=$(pgrep -f pprincipal)
+	PID_PPAL=$(pgrep -fn pprincipal)
 	if [[ "$PID_PPAL" -gt 0 ]]
 	then
 		MENSAJE="El proceso principal ya se encuentra corriendo, con PID: $PID_PPAL."

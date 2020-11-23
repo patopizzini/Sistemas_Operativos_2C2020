@@ -9,7 +9,7 @@
 #
 #TP1 - frenaproceso
 
-PID_PPAL=$(pgrep -f pprincipal)
+PID_PPAL=$(pgrep -fn pprincipal)
 if [[ "$PID_PPAL" -gt 0 ]]
 then
 	kill -15 $PID_PPAL
