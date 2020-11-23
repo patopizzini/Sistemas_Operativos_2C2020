@@ -60,18 +60,18 @@ then
 fi
 
 #Verificamos si el proceso no se encuentra corriendo
-PID_PPAL=$(pgrep -f pprincipal)
-if [[ "$PID_PPAL" -gt 0 ]]
-then
-	MENSAJE="El proceso principal ya se encuentra corriendo, con PID: $PID_PPAL."
-	echo $MENSAJE
-	log_message "ERR" "$MENSAJE" "pprincipal.sh"	
-	MENSAJE="Fin - pprincipal (1)"
-	echo $MENSAJE
-	log_message "ERR" "$MENSAJE" "pprincipal.sh"
+#PID_PPAL=$(pgrep -f pprincipal)
+#if [[ "$PID_PPAL" -gt 0 ]]
+#then
+#	MENSAJE="El proceso principal ya se encuentra corriendo, con PID: $PID_PPAL."
+#	echo $MENSAJE
+#	log_message "ERR" "$MENSAJE" "pprincipal.sh"	
+#	MENSAJE="Fin - pprincipal (1)"
+#	echo $MENSAJE
+#	log_message "ERR" "$MENSAJE" "pprincipal.sh"
 
-	exit 1
-fi
+#	exit 1
+#fi
 
 #Retorno al SO
 trap finalizar TERM
