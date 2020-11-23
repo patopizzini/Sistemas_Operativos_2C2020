@@ -40,6 +40,84 @@ finalizar() {
 	exit 0
 }
 
+#Funcion que se encarga de leer el directorio input y clasificar los archivos
+#Deja un array de archivos candidatos en $ARCHIVOS_ACEPTADOS
+procesar_input(){
+
+	MENSAJE="Inicio de clasificación de archivos..."
+	log_message "INF" "$MENSAJE" "procesar input"
+	ARCHIVOS_PROCESADOS=()
+	while IFS= read -r -d $'\0';
+	do
+		ARCHIVOS_PROCESADOS+=("$REPLY")
+	done < <(find "$DIRPROC" -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" -print0)
+
+	find "$DIRIN" -maxdepth 1 -type f -not -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" |
+	while read file
+	do
+		if [[ -f "$file" ]]
+		then
+			MENSAJE="El archivo \"$file\" tiene un nombre incorrecto. Se movió a rechazados."
+			log_message "ERR" "$MENSAJE" "procesar input"
+			mv "$file" "$DIRRECH"
+		fi
+	done
+
+	find "$DIRIN" -maxdepth 1 -type f -name "C[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_Lote[0-9][0-9][0-9][0-9].txt" |
+	while read file
+	do
+		if [[ -f "$file" ]]
+		then
+			#Es un archivo
+			if [[ ! -s "$file" ]] #Archivo vacío
+			then
+				MENSAJE="El archivo \"$file\" está vacío. Se movió a rechazados."
+				log_message "ERR" "$MENSAJE" "procesar input"
+				mv "$file" "$DIRRECH"
+			else
+				if [[ -z "$(file $file | grep text)" ]] #Archivo binario
+				then
+					MENSAJE="El archivo \"$file\" no es de texto. Se movió a rechazados."
+					log_message "ERR" "$MENSAJE" "procesar input"
+					mv "$file" "$DIRRECH"
+				else
+					posibleMerchantCode="$(echo $file | sed -n 's-.*\([0-9]\{8\}\).*-\1-p')"
+					if [[ -z "$(cut -d, -f1 "$DIRMAE/comercios.txt" | grep $posibleMerchantCode)" ]] #Validar merchant code
+					then
+						MENSAJE="El merchant code del archivo \"$file\" no existe en tabla maestra de comercios. Se movió a rechazados."
+						log_message "ERR" "$MENSAJE" "procesar input"
+						mv "$file" "$DIRRECH"
+					else
+						DUPLICADO=0
+						for i in "${ARCHIVOS_PROCESADOS[@]}"
+						do
+							if [[ $(basename -- "$i") == $(basename -- "$file") ]]
+							then
+								MENSAJE="El archivo \"$file\" se encuentra duplicado. Se movió a rechazados."
+								log_message "ERR" "$MENSAJE" "procesar input"
+								mv "$file" "$DIRRECH"
+								DUPLICADO=1
+								break
+							fi
+						done
+					
+						if [[ $DUPLICADO -eq 0 ]]
+						then
+							ARCHIVOS_ACEPTADOS+=("$(basename -- \"$file\")") 
+							MENSAJE="El archivo \"$file\" fue aceptado. Se movió a aceptados."
+							log_message "INF" "$MENSAJE" "procesar input"
+							mv "$file" "$DIRIN/ok"
+						fi
+					fi
+				fi
+			fi
+		fi
+	done
+
+	MENSAJE="Fin de clasificación de archivos."
+	log_message "INF" "$MENSAJE" "procesar input"
+}
+
 #Mensaje y log de inicio
 MENSAJE='TP1 - SO75.08 - 2do Cuatrimestre 2020 - Curso Martes Copyright © Grupo 3'
 log_message "INF" "$MENSAJE" "pprincipal.sh"
@@ -104,14 +182,17 @@ do
 	MENSAJE="Comenzando el ciclo: $NUMERO_CICLO"
 	log_message "INF" "$MENSAJE" "pprincipal.sh"
 	
-	
 	############################################
 	# REALIZAR EL PROCESAMIENTO
 	############################################
 
-	MENSAJE="!!!"
-	log_message "INF" "$MENSAJE" "pprincipal.sh"
-	
+	#Procesar input
+	#Array con archivos candidatos para los pasos siguientes
+	ARCHIVOS_ACEPTADOS=()
+	procesar_input
+
+	#Validar candidatos
+	#Calcular comisiones y generar salida
 	
 	#Sleep para tener una pausa entre ejecuciones (parametrizable)
 	MENSAJE="Durmiendo $INTERVALO_SEGUNDOS segundos."
