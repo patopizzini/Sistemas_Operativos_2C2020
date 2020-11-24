@@ -153,16 +153,16 @@ validar_candidatos(){
 			break
 		fi
 		#Si el registro de cabecera indica NUMBER_OF_TRX_RECORDS = 00000, se rechaza todo el archivo.
-		NUMBER_OF_TRX_RECORDS_TFH=$(echo $TFH | cut -d, -f7)
+		NUMBER_OF_TRX_RECORDS_TFH=$(echo $TFH | cut -d, -f7 | sed 's/^0*//')
 		if [[ $NUMBER_OF_TRX_RECORDS_TFH -eq 0 ]]
 		then
 			MENSAJE="El archivo \"$file\" no tiene transacciones. Se movió a rechazados."
 			log_message "ERR" "$MENSAJE" "validar candidatos"
 			mv "$DIRIN/ok/$file" "$DIRRECH"
 			break
-		fi		
+		fi	
 		#NUMBER_OF_TRX_RECORDS nos indica cuantos registros de transacciones vienen a continuación, si esto no coincide con lo que realmente viene, se rechaza todo el archivo
-		NUMBER_OF_TRX_RECORDS_REAL=$(cat "$DIRIN/ok/$file" | wc -l)		
+		NUMBER_OF_TRX_RECORDS_REAL=$(cat "$DIRIN/ok/$file" | wc -l)
 		if [[ $NUMBER_OF_TRX_RECORDS_TFH -ne $(($NUMBER_OF_TRX_RECORDS_REAL-1)) ]]
 		then
 			MENSAJE="El archivo \"$file\" contiene información inconsistente de TRX_RECORDS. Se movió a rechazados."
@@ -170,7 +170,6 @@ validar_candidatos(){
 			mv "$DIRIN/ok/$file" "$DIRRECH"
 			break
 		fi
-		
 		#Chequeos transacciones
 		NRO_LINEA=1
 		while read -r LINEA || [[ $LINEA ]]
@@ -232,17 +231,80 @@ calcular_comisiones(){
 
 	#Recorremos el array de archivos aceptados, para validarlos
 	MENSAJE="Inicio de cálculo de comisiones y escritura de salida..."
-	log_message "INF" "$MENSAJE" "calcular comisiones"
+	log_message "INF" "$MENSAJE" "comisiones/liquidaciones"
 	for file in "${ARCHIVOS_VALIDADOS[@]}"
 	do
 		MENSAJE="Archivo: \"$file\"."
-		log_message "INF" "$MENSAJE" "calcular comisiones"
+		log_message "INF" "$MENSAJE" "comisiones/liquidaciones"
+
+		#Grabar el archivo de liquidaciones
+		MENSAJE="Generando archivos de liquidaciones..."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
+		#SETTLEMENT_FILE: este prefijo se obtiene de la tabla maestra tarjetashomologadas.txt, a partir del ID_PAYMENT_METHOD
+		#Año del FILE_CREATION_DATE
+		#Mes del FILE_CREATION_DATE
+		
+		#$DIROUT/VISA-aaaaa-mm.txt
+		#$DIROUT/MASTER-aaaaa-mm.txt
+		#$DIROUT/AMEX-aaaaa-mm.txt
+		#$DIROUT/SP-aaaaa-mm.txt
+
+		#Tomamaos la fecha del archivo
+		TFH=$(head -n 1 "$DIRIN/ok/$file")
+		MES=$(echo $TFH | cut -d, -f5 | sed -n 's-^[0-9]\{4\}\([0-9]\{2\}\).*-\1-p')
+		ANIO=$(echo $TFH | cut -d, -f5 | sed -n 's-\(^[0-9]\{4\}\).*-\1-p')
+
+		NRO_LINEA=1
+		while read -r LINEA || [[ $LINEA ]]
+		do
+			if [[ $NRO_LINEA > 1 ]]
+			then
+				ID_TRANSACTION=$(echo $LINEA | cut -d, -f3)
+				ID_PAYMENT_METHOD=$(echo $LINEA | cut -d, -f5)
+				TRX_AMOUNT=$(echo $LINEA | cut -d, -f11)
+				PROCESSING_CODE=$(echo $LINEA | cut -d, -f12)
+				PROCESSING_CODE_BUSCAR="000000"
+				
+				if [[ "$PROCESSING_CODE" == "000000" ]]
+				then
+					PROCESSING_CODE_BUSCAR="111111"
+				fi
+				
+				COMPENSA=$(grep ".*,.*,$ID_TRANSACTION,.*,.*,.*,.*,.*,.*,.*,$TRX_AMOUNT,$PROCESSING_CODE_BUSCAR,.*,.*" "$DIRIN/ok/$file")
+				
+				if [[ -z $COMPENSA ]]
+				then
+					CARD_TYPE_LINEA=$(grep "$ID_PAYMENT_METHOD,.*,.*,.*,.*,.*" "$DIRMAE/tarjetashomologadas.txt")
+					CARD_TYPE=$(echo $CARD_TYPE_LINEA | cut -d, -f3)
+					FILENAME_NO_EXTENSION=$(basename -- "$file" .txt)
+					
+					#Grabamos las TFD que no compensan
+					LINEA_OUT=$(echo $LINEA | sed -n "s-^\(TFD\)\(.*\)-$FILENAME_NO_EXTENSION\2-p")
+					echo $LINEA_OUT >> "$DIROUT/$CARD_TYPE-$ANIO-$MES.txt"
+					
+					MENSAJE="Se agregó al archivo "$DIROUT/$CARD_TYPE-$ANIO-$MES.txt" el registro \"$LINEA_OUT\"."
+					log_message "INF" "$MENSAJE" "comisiones/liquidaciones"
+				fi
+			fi
+
+			let "NRO_LINEA++"
+
+		done < "$DIRIN/ok/$file"
+		
+		#Grabar el archivo de comisiones
+		MENSAJE="Generando archivos de comisiones..."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
 
 
-		#HACER CUENTAS
-		echo "hacer cuentas!"
 
 
+
+		#Mandarlo a procesados y loguear
+		MENSAJE="Se terminó de procesar el archivo \"$file\". Se movió a procesados."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
+		
+		mv "$DIRIN/ok/$file" "$DIRPROC"
+		
 	done
 }
 
