@@ -4,7 +4,8 @@ PATH_INPUT="../input/"
 PATH_ACEPTADOS="../input/ok"
 PATH_RECHAZADOS="../rechazados"
 PATH_OUTPUT="../output"
-PATH_OUTPUT_COMISIONES=".../output/comisiones"
+
+PATH_OUTPUT_COMISIONES="../output/comisiones"
 PATH_PROCESADOS="../lotes"
 ARCH_COMERCIO="../master/comercios.csv"
 ARCH_TARJETASHOMOLOGAS="../master/tarjetashomologadas.csv"
@@ -52,13 +53,17 @@ function validarPerteneceTarjetaHomologa(){
 
 
 codTarjeta="$ARCH_TARJETASHOMOLOGAS"
-while IFS=',' read idpay col2 col3 col4 col5 Settlement_file
+while IFS=',' read idpay brand col3 debit_Rate credit_Rate Settlement_file
 do
     #echo "$idpay" #lee bien
     
     if [[ "$idarch" == "$idpay" ]];
     then 
-        tipoDeTarjeta="$Settlement_file"     
+        tipoDeTarjeta="$Settlement_file" 
+        marcaTarjeta="$brand"
+        porcDebit="$debit_Rate"
+        porcCredit="$credit_Rate" 
+
         return 0 
     fi
     
@@ -91,18 +96,18 @@ function verificarRegistroCabecera()
                   
         let "cantidaDeRegistros = cantidaDeRegistros - 1"
         numregistro=1
-        while IFS=',' read col1 col2 col3 col4 File_Creation_Date col6 col7 col8 col9 col10 col11 col12 col13 col14
+        while IFS=',' read col1 col2 col3 col4 File_Creation_Date col6 col7 col8 col9 col10 trx_amount col12 col13 col14
         do  
             nozerocol2=$(echo $col2 | sed 's/^0*//')
                 
             if [[ $nozerocol2 == $numregistro ]] && [[ $col1 == "TFH" ]] && [[ $col3 == "$nomarchMerchantCode" ]] && [[ $col7  == $cantidaDeRegistros ]]
             then
-                echo "es valido cabecera"  
+                #echo "es valido cabecera"  
                            
                 cumplecabecera=0;
                 return 0
             else
-                echo "salio"
+                #echo "salio"
                 mv "$fileAceptado" "$PATH_RECHAZADOS"
             
             fi
@@ -138,16 +143,17 @@ function verificarRegistroTransaccion()
                   
         let "cantidaDeRegistros = cantidaDeRegistros - 1"
         numregistro=1
-        while IFS=',' read col1 col2 posibleMerchantCode col4 idarch col6 col7 col8 col9 col10 col11 col12 col13 col14
+        while IFS=',' read col1 col2 posibleMerchantCode col4 idarch col6 col7 col8 col9 col10 trx_amount col12 col13 col14
         do  
+            validarNombreArchivoInput #paraliquidar
             nozerocol2=$(echo $col2 | sed 's/^0*//')
                 
             
         if [[ $numregistro -ge 2 ]] && [[ $numregistro -lt $cantidaDeRegistros ]];
         then
-              echo "entro"
-              echo "$idarch"
-              echo "$col1"
+              #echo "entro"
+              #echo "$idarch"
+              #echo "$col1"
             if validarPerteneceTarjetaHomologa; #validamos la columna 5 con tarjetas homologadas
             then                          
                 if [[ $nozerocol2 == $numregistro ]] && [[ $col1 == "TFD" ]]
@@ -155,7 +161,7 @@ function verificarRegistroTransaccion()
                     if [ $col12 == "000000" ] || [ $col12 == "111111" ]
                     then
                        echo "valido"
-                       generarArchivoLiquidacionyComision
+                       #generarArchivoLiquidacionyComision
                        
                     else
                        mv "$fileAceptado" "$PATH_RECHAZADOS"
@@ -195,15 +201,37 @@ function generarArchivoLiquidacionyComision()
         mm="${File_Creation_Date:4:2}"
         idTransaccion="$nomarchMerchantCode"
         nomarchSalidaLiquidacion="$tipoDeTarjeta-$aaaa-$mm"
+        nomarchSalidaComision="$grupoMerchant-$aaaa-$mm" 
         
-        nomarchSalidaComision="$grupoMerchant-$aaaa-$mm"
         
 
-        while IFS=',' read col1 col2 col3 col4 col5 col6 col7 col8 col9 col10 col11 col12 col13 col14
-        do       
+        while IFS=',' read col1 col2 col3 col4 idarch col6 col7 col8 col9 col10  trx_amount procCodigo col13 col14
+        do
+        
+        
+       
+        
+        if [[ $procCodigo == "000000" ]];
+        then
+            rate="$porcDebit"
+        else 
+            rate="$porcCredit"
+        fi
+        numAmount=$(echo $trx_amount | sed 's/^0*//')
 
-        echo "$nomarchSalidaLiquidacion"
-        echo "$nomarchSalidaComision"
+        numRate=$(echo $rate | sed 's/^0*//')
+        
+        let "serviceCharge = $numAmount * $numRate/10000"
+
+        nuevoServiceCharge=$(printf %012d ${serviceCharge%.*})
+
+        idcomision=${nomarchivoAceptado:0:18}
+        
+       
+        if [[ $col1 == "TFD" ]]
+        then
+        echo -e "$idcomision,$col2,$col3,$col4,$idarch,$rate,$nuevoServiceCharge,$marcaTarjeta,$col9,$col10,$trx_amount,$procCodigo,$col13" >> "$PATH_OUTPUT_COMISIONES/$nomarchSalidaComision.csv"
+        fi
 
                  
         done<"$registroArch"
@@ -246,7 +274,9 @@ done
 if [ "$(ls $PATH_ACEPTADOS/)" ]
 then
     verificarRegistroCabecera; 
-    verificarRegistroTransaccion;       
+    verificarRegistroTransaccion; 
+    generarArchivoLiquidacionyComision; 
+    mv $fileAceptado $PATH_PROCESADOS  
 fi
     
 

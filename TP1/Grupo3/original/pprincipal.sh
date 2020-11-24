@@ -107,7 +107,7 @@ procesar_input(){
 					
 						if [[ $DUPLICADO -eq 0 ]]
 						then
-							ARCHIVOS_ACEPTADOS+=("$(basename -- \"$file\")")
+							ARCHIVOS_ACEPTADOS+=($(basename -- "$file"))
 							MENSAJE="El archivo \"$file\" fue aceptado. Se movió a aceptados."
 							log_message "INF" "$MENSAJE" "procesar input"
 							mv "$file" "$DIRIN/ok"
@@ -116,6 +116,133 @@ procesar_input(){
 				fi
 			fi
 		fi
+	done
+}
+
+#Funcion que se encarga de leer el array de aceptados y validar los archivos
+#Deja un array de archivos validados en $ARCHIVOS_VALIDADOS
+validar_candidatos(){
+
+	#Recorremos el array de archivos aceptados, para validarlos
+	MENSAJE="Inicio de validación de candidatos..."
+	log_message "INF" "$MENSAJE" "procesar input"
+	for file in "${ARCHIVOS_ACEPTADOS[@]}"
+	do
+		MENSAJE="Archivo: \"$file\"."
+		log_message "INF" "$MENSAJE" "procesar input"
+		
+		#Chequeos cabecera
+		#Si el registro de cabecera no existe, se rechaza todo el archivo
+		TFH=$(head -n 1 "$DIRIN/ok/$file")
+		CANT_COL=$(echo "$TFH" | sed 's/[^,]//g' | wc -c)
+		if [[ $CANT_COL -ne 7 ]]
+		then
+			MENSAJE="El archivo \"$file\" no tiene cabecera o su formato es inválido. Se movió a rechazados."
+			log_message "ERR" "$MENSAJE" "validar candidatos"
+			mv "$DIRIN/ok/$file" "$DIRRECH"
+			break
+		fi
+		#Si el registro de cabecera indica un MERCHANT_CODE distinto al que viene en el nombre externo del archivo, se rechaza todo el archivo
+		MERCHANT_CODE_FILENAME=$(echo "$DIRIN/ok/$file" | sed -n 's-.*\([0-9]\{8\}\).*-\1-p')
+		MERCHANT_CODE_TFH=$(echo $TFH | cut -d, -f3)
+		if [[ $MERCHANT_CODE_TFH != $MERCHANT_CODE_FILENAME ]]
+		then
+			MENSAJE="El archivo \"$file\" contiene información inconsistente de MERCHANT_CODE. Se movió a rechazados."
+			log_message "ERR" "$MENSAJE" "validar candidatos"
+			mv "$DIRIN/ok/$file" "$DIRRECH"
+			break
+		fi
+		#Si el registro de cabecera indica NUMBER_OF_TRX_RECORDS = 00000, se rechaza todo el archivo.
+		NUMBER_OF_TRX_RECORDS_TFH=$(echo $TFH | cut -d, -f7)
+		if [[ $NUMBER_OF_TRX_RECORDS_TFH -eq 0 ]]
+		then
+			MENSAJE="El archivo \"$file\" no tiene transacciones. Se movió a rechazados."
+			log_message "ERR" "$MENSAJE" "validar candidatos"
+			mv "$DIRIN/ok/$file" "$DIRRECH"
+			break
+		fi		
+		#NUMBER_OF_TRX_RECORDS nos indica cuantos registros de transacciones vienen a continuación, si esto no coincide con lo que realmente viene, se rechaza todo el archivo
+		NUMBER_OF_TRX_RECORDS_REAL=$(cat "$DIRIN/ok/$file" | wc -l)		
+		if [[ $NUMBER_OF_TRX_RECORDS_TFH -ne $(($NUMBER_OF_TRX_RECORDS_REAL-1)) ]]
+		then
+			MENSAJE="El archivo \"$file\" contiene información inconsistente de TRX_RECORDS. Se movió a rechazados."
+			log_message "ERR" "$MENSAJE" "validar candidatos"
+			mv "$DIRIN/ok/$file" "$DIRRECH"
+			break
+		fi
+		
+		#Chequeos transacciones
+		NRO_LINEA=1
+		while read -r LINEA || [[ $LINEA ]]
+		do
+			if [[ $NRO_LINEA > 1 ]]
+			then
+				#Si el RECORD_TYPE de algún registro TFD no indica el valor TFD, se rechaza todo el archivo
+				TFD=$(echo $LINEA | cut -d, -f1)
+				if [[ $TFD != "TFD" ]]
+				then
+					MENSAJE="El registro $NRO_LINEA del archivo \"$file\" tiene un RECORD_TYPE incorrecto. Se movió a rechazados."
+					log_message "ERR" "$MENSAJE" "validar candidatos"
+					mv "$DIRIN/ok/$file" "$DIRRECH"
+					break
+				fi
+				#Si el RECORD_NUMBER de algún registro TFD no se corresponde con el numero de registro correcto, se rechaza todo el archivo
+				RECORD_NUMBER=$(echo $LINEA | cut -d, -f2)
+				if [[ $(echo $RECORD_NUMBER | sed 's/^0*//') -ne $NRO_LINEA ]]
+				then
+					MENSAJE="El registro $NRO_LINEA del archivo \"$file\" tiene un RECORD_NUMBER incorrecto. Se movió a rechazados."
+					log_message "ERR" "$MENSAJE" "validar candidatos"
+					mv "$DIRIN/ok/$file" "$DIRRECH"
+					break
+				fi
+				#Si el ID_PAYMENT_METHOD de algún registro TFD no indica un valor que existe en la tabla de tarjetas homologadas, se rechaza todo el archivo
+				ID_PAYMENT_METHOD=$(echo $LINEA | cut -d, -f5)
+				if [[ -z "$(cut -d, -f1 "$DIRMAE/tarjetashomologadas.txt" | grep $ID_PAYMENT_METHOD)" ]]
+				then
+					MENSAJE="El registro $NRO_LINEA del archivo \"$file\" tiene un ID_PAYMENT_METHOD inexistente en la tabla maestra de tarjetas homologadas. Se movió a rechazados."
+					log_message "ERR" "$MENSAJE" "validar candidatos"
+					mv "$DIRIN/ok/$file" "$DIRRECH"
+					break
+				fi
+				#Si el PROCESSING_CODE de algún registro TFD no indica un valor permitido (000000 o 111111), se rechaza todo el archivo
+				PROCESSING_CODE=$(echo $LINEA | cut -d, -f12)
+				if [[ "$PROCESSING_CODE" != "000000" ]] && [[ "$PROCESSING_CODE" != "111111" ]]
+				then
+					MENSAJE="El registro $NRO_LINEA del archivo \"$file\" tiene un PROCESSING_CODE incorrecto. Se movió a rechazados."
+					log_message "ERR" "$MENSAJE" "validar candidatos"
+					mv "$DIRIN/ok/$file" "$DIRRECH"
+					break
+				fi
+			fi
+
+			let "NRO_LINEA++"
+
+		done < "$DIRIN/ok/$file"
+
+		#Lo agregamos a los validados
+		ARCHIVOS_VALIDADOS+=($(basename -- "$file"))
+		MENSAJE="El archivo \"$file\" fue validado."
+		log_message "INF" "$MENSAJE" "validar candidatos"
+		
+	done
+}
+
+#Funcion que se encarga de calcular las comisiones en base a los archivos validados, y generar la salida
+calcular_comisiones(){
+
+	#Recorremos el array de archivos aceptados, para validarlos
+	MENSAJE="Inicio de cálculo de comisiones y escritura de salida..."
+	log_message "INF" "$MENSAJE" "calcular comisiones"
+	for file in "${ARCHIVOS_VALIDADOS[@]}"
+	do
+		MENSAJE="Archivo: \"$file\"."
+		log_message "INF" "$MENSAJE" "calcular comisiones"
+
+
+		#HACER CUENTAS
+		echo "hacer cuentas!"
+
+
 	done
 }
 
@@ -192,20 +319,36 @@ do
 	ARCHIVOS_ACEPTADOS=()
 	procesar_input
 	CANT_ARCHIVOS_ACEPTADOS=${#ARCHIVOS_ACEPTADOS[@]}
-	MENSAJE="Se encontraron $CANT_ARCHIVOS_ACEPTADOS candidatos en \"$DIRIN\"."
+	MENSAJE="Se encontraron $CANT_ARCHIVOS_ACEPTADOS archivos candidatos en \"$DIRIN\"."
 	log_message "INF" "$MENSAJE" "pprincipal.sh"
 	MENSAJE="Fin de clasificación de archivos."
 	log_message "INF" "$MENSAJE" "pprincipal.sh"
-	
 	if [[ $CANT_ARCHIVOS_ACEPTADOS -gt 0 ]]
 	then
-		
 		#Validar candidatos
+		#Array con archivos validados para los pasos siguientes
+		ARCHIVOS_VALIDADOS=()
+		validar_candidatos
+		CANT_ARCHIVOS_VALIDADOS=${#ARCHIVOS_VALIDADOS[@]}
+		MENSAJE="Se validaron $CANT_ARCHIVOS_VALIDADOS archivos candidatos en \"$DIRIN/ok\"."
+		log_message "INF" "$MENSAJE" "pprincipal.sh"
 		MENSAJE="Fin de validación de candidatos."
 		log_message "INF" "$MENSAJE" "pprincipal.sh"
 		
-		#Calcular comisiones y generar salida
-		MENSAJE="Fin de cálculo de comisiones y escritura de salida."
+		if [[ $CANT_ARCHIVOS_VALIDADOS -gt 0 ]]
+		then
+			#Calcular comisiones y generar salida
+			calcular_comisiones
+			MENSAJE="Se procesaron $CANT_ARCHIVOS_VALIDADOS archivos."
+			log_message "INF" "$MENSAJE" "pprincipal.sh"
+			MENSAJE="Fin de cálculo de comisiones y escritura de salida."
+			log_message "INF" "$MENSAJE" "pprincipal.sh"
+		else
+			MENSAJE="No se procesaron archivos en el ciclo $NUMERO_CICLO."
+			log_message "INF" "$MENSAJE" "pprincipal.sh"
+		fi
+	else
+		MENSAJE="No se procesaron archivos en el ciclo $NUMERO_CICLO."
 		log_message "INF" "$MENSAJE" "pprincipal.sh"
 	fi
 	
