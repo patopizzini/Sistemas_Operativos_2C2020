@@ -274,6 +274,17 @@ calcular_comisiones(){
 				TRX_AMOUNT=$(echo $LINEA | cut -d, -f11)
 				PROCESSING_CODE=$(echo $LINEA | cut -d, -f12)
 				PROCESSING_CODE_BUSCAR="000000"
+				CARD_TYPE_LINEA=$(grep "$ID_PAYMENT_METHOD,.*,.*,.*,.*,.*" "$DIRMAE/tarjetashomologadas.txt")
+				CARD_TYPE=$(echo $CARD_TYPE_LINEA | cut -d, -f3)
+				
+				BRAND=$(echo $CARD_TYPE_LINEA | cut -d, -f2)
+				BRAND_LENGTH=${#BRAND}
+				BRAND_STEPS=$((25 - BRAND_LENGTH))
+				BRAND_PADDED=$BRAND
+				for (( c=1; c<=$BRAND_STEPS; c++ ))
+				do 
+					BRAND_PADDED="${BRAND_PADDED} "
+				done
 				
 				if [[ "$PROCESSING_CODE" == "000000" ]]
 				then
@@ -284,9 +295,6 @@ calcular_comisiones(){
 				
 				if [[ -z $COMPENSA ]]
 				then
-					CARD_TYPE_LINEA=$(grep "$ID_PAYMENT_METHOD,.*,.*,.*,.*,.*" "$DIRMAE/tarjetashomologadas.txt")
-					CARD_TYPE=$(echo $CARD_TYPE_LINEA | cut -d, -f3)
-					
 					#Grabamos las TFD que no compensan
 					LINEA_OUT=$(echo $LINEA | sed -n "s-^\(TFD\)\(.*\)-$FILENAME_NO_EXTENSION\2-p")
 					echo $LINEA_OUT >> "$DIROUT/$CARD_TYPE-$ANIO-$MES.txt"
@@ -316,12 +324,36 @@ calcular_comisiones(){
 				#• MERCHANT_CODE_GROUP: este prefijo se obtiene de la tabla maestra comercios.txt, a partir del MERCHANT_CODE
 				#• Año del FILE_CREATION_DATE
 				#• Mes del FILE_CREATION_DATE
+				DEBIT_RATE=$(echo $CARD_TYPE_LINEA | cut -d, -f4)
+				CREDIT_RATE=$(echo $CARD_TYPE_LINEA | cut -d, -f5)
+				DEBIT_RATE_LIMPIO=$(echo $DEBIT_RATE | sed 's/^0*//')
+				CREDIT_RATE_LIMPIO=$(echo $CREDIT_RATE | sed 's/^0*//')
+				TRX_AMOUNT_LIMPIO=$(echo $TRX_AMOUNT | sed 's/^0*//')
 
-
-
-			
-				LINEA_OUT_COMI="TEST!"
-				echo $LINEA_OUT_COMI >> "$DIROUT/comisiones/$MERCHANT_CODE_GROUP-$ANIO-$MES.txt"
+				SERVICE_CHARGE_D=0
+				SERVICE_CHARGE_C=0
+				if [[ "$PROCESSING_CODE" == "000000" ]]
+				then
+					#DEBIT
+					SERVICE_CHARGE_AD=$((TRX_AMOUNT_LIMPIO * DEBIT_RATE_LIMPIO))
+					SERVICE_CHARGE_BD=$((SERVICE_CHARGE_AD / 10000))
+					
+					SERVICE_CHARGE_D=$(echo $SERVICE_CHARGE_BD | sed -e :a -e 's/^.\{1,11\}$/0&/;ta')
+					
+					#Grabamos la linea con las comisiones
+					LINEA_OUT_COMI_D=$(echo $LINEA | sed -n "s-.*,\(.*,.*,.*,.*,\).*,.*,.*,\(.*,.*,.*,.*,.*\),.*-$FILENAME_NO_EXTENSION,\1$DEBIT_RATE,$SERVICE_CHARGE_D,$BRAND_PADDED,\2-p")
+					echo "$LINEA_OUT_COMI_D" >> "$DIROUT/comisiones/$MERCHANT_CODE_GROUP-$ANIO-$MES.txt"
+				else
+					#CREDIT
+					SERVICE_CHARGE_AC=$((TRX_AMOUNT_LIMPIO * CREDIT_RATE_LIMPIO))
+					SERVICE_CHARGE_BC=$((SERVICE_CHARGE_AC / 10000))
+					
+					SERVICE_CHARGE_C=$(echo $SERVICE_CHARGE_BC | sed -e :a -e 's/^.\{1,11\}$/0&/;ta')
+					
+					#Grabamos la linea con las comisiones
+					LINEA_OUT_COMI_C=$(echo $LINEA | sed -n "s-.*,\(.*,.*,.*,.*,\).*,.*,.*,\(.*,.*,.*,.*,.*\),.*-$FILENAME_NO_EXTENSION,\1$CREDIT_RATE,$SERVICE_CHARGE_C,$BRAND_PADDED,\2-p")
+					echo "$LINEA_OUT_COMI_C" >> "$DIROUT/comisiones/$MERCHANT_CODE_GROUP-$ANIO-$MES.txt"
+				fi
 			fi
 
 			let "NRO_LINEA++"
