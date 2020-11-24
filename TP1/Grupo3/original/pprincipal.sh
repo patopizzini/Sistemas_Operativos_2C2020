@@ -237,28 +237,38 @@ calcular_comisiones(){
 		MENSAJE="Archivo: \"$file\"."
 		log_message "INF" "$MENSAJE" "comisiones/liquidaciones"
 
-		#Grabar el archivo de liquidaciones
-		MENSAJE="Generando archivos de liquidaciones..."
-		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
-		#SETTLEMENT_FILE: este prefijo se obtiene de la tabla maestra tarjetashomologadas.txt, a partir del ID_PAYMENT_METHOD
-		#Año del FILE_CREATION_DATE
-		#Mes del FILE_CREATION_DATE
-		
-		#$DIROUT/VISA-aaaaa-mm.txt
-		#$DIROUT/MASTER-aaaaa-mm.txt
-		#$DIROUT/AMEX-aaaaa-mm.txt
-		#$DIROUT/SP-aaaaa-mm.txt
+		FILENAME_NO_EXTENSION=$(basename -- "$file" .txt)
 
-		#Tomamaos la fecha del archivo
+		#Tomamos la fecha del archivo
 		TFH=$(head -n 1 "$DIRIN/ok/$file")
 		MES=$(echo $TFH | cut -d, -f5 | sed -n 's-^[0-9]\{4\}\([0-9]\{2\}\).*-\1-p')
 		ANIO=$(echo $TFH | cut -d, -f5 | sed -n 's-\(^[0-9]\{4\}\).*-\1-p')
+		MERCHANT_CODE_TFH=$(echo $TFH | cut -d, -f3)
+		MERCHANT_CODE_MAESTRO=$(grep "$MERCHANT_CODE_TFH,.*,.*,.*" "$DIRMAE/comercios.txt")
+		MERCHANT_CODE_GROUP=$(echo "$MERCHANT_CODE_MAESTRO" | cut -d, -f2)
 
 		NRO_LINEA=1
+		NRO_LIQUI_V=0
+		NRO_LIQUI_A=0
+		NRO_LIQUI_M=0
+		NRO_LIQUI_S=0
+		
+		MENSAJE="Generando archivos..."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
 		while read -r LINEA || [[ $LINEA ]]
 		do
 			if [[ $NRO_LINEA > 1 ]]
 			then
+				#Grabar el archivo de liquidaciones
+				#SETTLEMENT_FILE: este prefijo se obtiene de la tabla maestra tarjetashomologadas.txt, a partir del ID_PAYMENT_METHOD
+				#Año del FILE_CREATION_DATE
+				#Mes del FILE_CREATION_DATE
+		
+				#$DIROUT/VISA-aaaaa-mm.txt
+				#$DIROUT/MASTER-aaaaa-mm.txt
+				#$DIROUT/AMEX-aaaaa-mm.txt
+				#$DIROUT/SP-aaaaa-mm.txt
+				
 				ID_TRANSACTION=$(echo $LINEA | cut -d, -f3)
 				ID_PAYMENT_METHOD=$(echo $LINEA | cut -d, -f5)
 				TRX_AMOUNT=$(echo $LINEA | cut -d, -f11)
@@ -276,7 +286,6 @@ calcular_comisiones(){
 				then
 					CARD_TYPE_LINEA=$(grep "$ID_PAYMENT_METHOD,.*,.*,.*,.*,.*" "$DIRMAE/tarjetashomologadas.txt")
 					CARD_TYPE=$(echo $CARD_TYPE_LINEA | cut -d, -f3)
-					FILENAME_NO_EXTENSION=$(basename -- "$file" .txt)
 					
 					#Grabamos las TFD que no compensan
 					LINEA_OUT=$(echo $LINEA | sed -n "s-^\(TFD\)\(.*\)-$FILENAME_NO_EXTENSION\2-p")
@@ -284,22 +293,55 @@ calcular_comisiones(){
 					
 					MENSAJE="Se agregó al archivo "$DIROUT/$CARD_TYPE-$ANIO-$MES.txt" el registro \"$LINEA_OUT\"."
 					log_message "INF" "$MENSAJE" "comisiones/liquidaciones"
+					
+					if [[ $CARD_TYPE == "VISA" ]]
+					then
+						let "NRO_LIQUI_V++"
+					fi
+					if [[ $CARD_TYPE == "AMEX" ]]
+					then
+						let "NRO_LIQUI_A++"
+					fi
+					if [[ $CARD_TYPE == "MASTER" ]]
+					then
+						let "NRO_LIQUI_M++"
+					fi
+					if [[ $CARD_TYPE == "SP" ]]
+					then
+						let "NRO_LIQUI_S++"
+					fi
 				fi
+				
+				#Grabar el archivo de comisiones
+				#• MERCHANT_CODE_GROUP: este prefijo se obtiene de la tabla maestra comercios.txt, a partir del MERCHANT_CODE
+				#• Año del FILE_CREATION_DATE
+				#• Mes del FILE_CREATION_DATE
+
+
+
+			
+				LINEA_OUT_COMI="TEST!"
+				echo $LINEA_OUT_COMI >> "$DIROUT/comisiones/$MERCHANT_CODE_GROUP-$ANIO-$MES.txt"
 			fi
 
 			let "NRO_LINEA++"
 
 		done < "$DIRIN/ok/$file"
 		
-		#Grabar el archivo de comisiones
-		MENSAJE="Generando archivos de comisiones..."
-		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
-
-
-
-
-
 		#Mandarlo a procesados y loguear
+		NRO_LINEA_CORREJIDO=$((NRO_LINEA-2))
+		MENSAJE="INPUT; $FILENAME_NO_EXTENSION; $NRO_LINEA_CORREJIDO registros"
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
+		MENSAJE="OUTPUT; VISA-$ANIO-$MES; $NRO_LIQUI_V registros."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
+		MENSAJE="OUTPUT; AMEX-$ANIO-$MES; $NRO_LIQUI_A registros."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
+		MENSAJE="OUTPUT; MASTER-$ANIO-$MES; $NRO_LIQUI_M registros."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
+		MENSAJE="OUTPUT; SP-$ANIO-$MES; $NRO_LIQUI_S registros."
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
+		MENSAJE="OUTPUT; $MERCHANT_CODE_GROUP-$ANIO-$MES.txt"
+		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
 		MENSAJE="Se terminó de procesar el archivo \"$file\". Se movió a procesados."
 		log_message "INF" "$MENSAJE" "calcular comisiones/liquidaciones"
 		
