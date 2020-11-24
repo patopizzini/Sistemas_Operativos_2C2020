@@ -79,7 +79,7 @@ procesar_input(){
 				log_message "ERR" "$MENSAJE" "procesar input"
 				mv "$file" "$DIRRECH"
 			else
-				if [[ -z "$(file $file | grep text)" ]] #Archivo binario
+				if [[ -z "$(file "$file" | grep text)" ]] #Archivo binario
 				then
 					MENSAJE="El archivo \"$file\" no es de texto. Se movió a rechazados."
 					log_message "ERR" "$MENSAJE" "procesar input"
