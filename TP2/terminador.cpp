@@ -33,9 +33,9 @@ int main()
 	cout << "Estructuras eliminadas de la memoria compartida." << endl;	
 
 	//Destrucción de semáforos
-	sv_sem sVM ("sVM");	
+	sv_sem sVM ("sVM",0);	
 	sVM.del();
-	sv_sem sMV ("sMV");	
+	sv_sem sMV ("sMV",0);	
 	sMV.del();
 	cout << "Semáforos eliminados." << endl;
 
