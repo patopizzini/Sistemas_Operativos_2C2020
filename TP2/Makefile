@@ -27,12 +27,14 @@ all:
 		$(info Generando ejecutables...)
 		g++ $(CXXFLAGS) -o finalizador finalizador.cpp 
 		g++ $(CXXFLAGS) -o inicializador inicializador.cpp
+		g++ $(CXXFLAGS) -o status status.cpp
 		g++ $(CXXFLAGS) -o terminador terminador.cpp
 		g++ $(CXXFLAGS) -o vehiculoMV vehiculoMV.cpp
 		g++ $(CXXFLAGS) -o vehiculoVM vehiculoVM.cpp
 		
 		chmod +x finalizador
 		chmod +x inicializador
+		chmod +x status
 		chmod +x terminador
 		chmod +x vehiculoMV
 		chmod +x vehiculoVM
@@ -44,6 +46,7 @@ clean:
 		rm -f *.o
 		rm -f finalizador
 		rm -f inicializador
+		rm -f status
 		rm -f terminador
 		rm -f vehiculoMV
 		rm -f vehiculoVM

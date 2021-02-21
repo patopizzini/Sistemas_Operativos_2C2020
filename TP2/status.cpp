@@ -5,7 +5,7 @@
 //91076 - PORRAS CARHUAMACA, SHERLY KATERIN (sporras@fi.uba.ar)
 //97524 - PIZZINI, PATRICIO (ppizzini@fi.uba.ar)
 //
-//TP2 - Ruta - Finalizador
+//TP2 - Ruta - Status
 
 #include <iostream>
 #include "ruta_datos.h"
@@ -24,13 +24,13 @@ int main()
 	cout << "91076 - PORRAS CARHUAMACA, SHERLY KATERIN (sporras@fi.uba.ar)" << endl;
 	cout << "97524 - PIZZINI, PATRICIO (ppizzini@fi.uba.ar)" << endl;
 	cout << endl;
-	cout << "TP2 - Ruta - Finalizador" << endl;
+	cout << "TP2 - Ruta - Status" << endl;
 	
-	//Inicio de finalizador
+	//Inicio de status
 	cout << endl;
-	cout << "Reseteando estructuras..." << endl;
+	cout << "Leyendo estado..." << endl;
 
-	//Reseteo de la estructura a almacenar en la memoria compartida
+	//Acceso a la estructura en la memoria compartida
 	//Contadores para vehículos en circulación en ambos sentidos
 	//Contadores para vehículos en espera en ambas cabeceras
 	sv_shm datos ("datos");
@@ -39,12 +39,6 @@ int main()
 	int len=sizeof(contador);
 	ptr=datos.map(len);
 	p_contador=reinterpret_cast<contador *>(ptr);
-	
-	//Reseteo de los contadores en memoria compartida
-	p_contador->n_VM = 0;
-	p_contador->c_VM = 0;
-	p_contador->n_MV = 0;
-	p_contador->c_MV = 0;
 
 	//Impresión de los datos en la memoria compartida
 	cout << endl;
@@ -54,36 +48,28 @@ int main()
 	cout << "Valor del contador en ruta MV: " << p_contador->n_MV << endl;
 	cout << "Valor del contador en cola MV: " << p_contador->c_MV << endl;
 	
-	//Reseteo de los semáforos
+	//Acesso de los semáforos
 	//Un semáforo para cada cabecera
-	sv_sem sVM ("sVM",0);
-	sv_sem sMV ("sMV",0);
+	sv_sem sVM ("sVM");
+	sv_sem sMV ("sMV");
 		
-	//Reseteo de los semáforos
+	//Lectura de los semáforos
 	cout << endl;
 	cout << "Semáforos" << endl;	
-	cout << "Reseteado semaforo sVM con id: " << sVM.getsem() << ", clave: " << sVM.getClave() << "." << endl; 
-	cout << "Reseteado semaforo sMV con id: " << sMV.getsem() << ", clave: " << sMV.getClave() << "." << endl; 
+	cout << "Semaforo sVM con id: " << sVM.getsem() << ", clave: " << sVM.getClave() << "." << endl; 
+	cout << "Semaforo sMV con id: " << sMV.getsem() << ", clave: " << sMV.getClave() << "." << endl; 
 
-	//Finalización de los procesos de vehículos que hubieran quedado activos
+	//Lectura de los procesos de vehículos activos
 	cout << endl;
 	cout << "Vehículos activos (PID)" << endl;
 	int status = system("pgrep -a \"vehiculo[VM|MV]\"");
 	if (WEXITSTATUS(status) != 0) {
-		
 		cout << "No se encontraron instancias activas de vehículos." << endl;
-	}
-	else {
-		
-		int status = system("pkill -f \"vehiculo[VM|MV]\"");
-		if (WEXITSTATUS(status) == 0) {
-			cout << "Se finalizaron las instancias activas de vehículos." << endl;
-		}
 	}
 	
 	//Mensaje de fin de ejecución
 	cout << endl;
-	cout << "Finalizador terminado." << endl;
+	cout << "Status terminado." << endl;
 
 	//Retorno al SO, código de éxito
 	return 0;
