@@ -50,14 +50,14 @@ int main()
 	
 	//Acesso de los semáforos
 	//Un semáforo para cada cabecera
-	sv_sem sVM ("sVM");
-	sv_sem sMV ("sMV");
+	//sv_sem sVM ("sVM");
+	//sv_sem sMV ("sMV");
 		
 	//Lectura de los semáforos
 	cout << endl;
-	cout << "Semáforos" << endl;	
-	cout << "Semaforo sVM con id: " << sVM.getsem() << ", clave: " << sVM.getClave() << "." << endl; 
-	cout << "Semaforo sMV con id: " << sMV.getsem() << ", clave: " << sMV.getClave() << "." << endl; 
+	cout << "Semáforos" << endl;
+	//cout << "Semaforo sVM con id: " << sVM.getsem() << ", clave: " << sVM.getClave() << "." << endl; 
+	//cout << "Semaforo sMV con id: " << sMV.getsem() << ", clave: " << sMV.getClave() << "." << endl; 
 
 	//Lectura de los procesos de vehículos activos
 	cout << endl;
