@@ -48,16 +48,10 @@ int main()
 	cout << "Valor del contador en ruta MV: " << p_contador->n_MV << endl;
 	cout << "Valor del contador en cola MV: " << p_contador->c_MV << endl;
 	
-	//Acesso de los semáforos
-	//Un semáforo para cada cabecera
-	//sv_sem sVM ("sVM");
-	//sv_sem sMV ("sMV");
-		
 	//Lectura de los semáforos
 	cout << endl;
 	cout << "Semáforos" << endl;
-	//cout << "Semaforo sVM con id: " << sVM.getsem() << ", clave: " << sVM.getClave() << "." << endl; 
-	//cout << "Semaforo sMV con id: " << sMV.getsem() << ", clave: " << sMV.getClave() << "." << endl; 
+	system("ipcs -s");
 
 	//Lectura de los procesos de vehículos activos
 	cout << endl;
