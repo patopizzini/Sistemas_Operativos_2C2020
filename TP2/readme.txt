@@ -33,11 +33,11 @@ Para ejecutar tenemos los siguientes archivos:
 =============================================================================
 ./inicializador 
 Es necesario ejecutarlo para crear todas las estructuras básicas en la memoria compartida
-como así también inicializa los semáforos correspondientes.
+como así también inicializar los semáforos correspondientes.
 
 ./finalizador
 Se encarga de realizar una limpieza tanto de las estructuras en memoria compartida como de
-los semáforos creados, quedando en un estado óptimo para realizar nuevas invocaciones.
+los semáforos creados. Adicionalmente, se termina la ejecución de los vehículos que hubiere activos, quedando el ambiente en un estado óptimo para realizar nuevas invocaciones
 
 ./terminador
 Con este comando lo que se hace es eliminar todas las estructuras en memoria compartida y borrar
@@ -51,12 +51,12 @@ comando muestra la información pertinente esta es una manera de tener una visi�
 un momento dado.
 
 ./vehiculoMV
-Cuando se ejecuta en caso de que no haya ningún vehículo en la ruta en dirección VM el proceso envía 
-este vehículo a la ruta en dirección MV, caso contrario se queda esperando, cuando la ruta se libere
-entraran aquellos que estuviesen esperando.
+Representa un vehículo que va del Monte al Valle. Cuando se ejecuta, en caso de que no haya ningún vehículo
+en la ruta en dirección VM el proceso envía este vehículo a la ruta en dirección MV, caso contrario se queda
+esperando, cuando la ruta se libere entraran aquellos que estuviesen esperando.
 
 ./vehiculoVM
-Cuando se ejecuta en caso de que no haya ningún vehículo en la ruta en dirección MV el proceso envía 
-este vehículo a la ruta en dirección VM, caso contrario se queda esperando, cuando la ruta se libere
-entraran aquellos que estuviesen esperando.
+Representa un vehículo que va del Valle al Monte. Cuando se ejecuta, en caso de que no haya ningún vehículo
+en la ruta en dirección MV el proceso envía este vehículo a la ruta en dirección VM, caso contrario se queda
+esperando, cuando la ruta se libere entraran aquellos que estuviesen esperando.
 =============================================================================
